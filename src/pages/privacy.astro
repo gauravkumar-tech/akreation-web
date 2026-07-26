@@ -1,0 +1,60 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Container from "../components/ui/Container.astro";
+---
+
+<BaseLayout
+  title="Privacy Policy"
+  description="Privacy Policy for A K Studio. Learn how we collect, use, and protect your personal information."
+>
+  <Header slot="header" />
+
+  <section class="py-16 md:py-24">
+    <Container>
+      <article class="max-w-3xl mx-auto prose dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight">
+        <p class="font-mono text-xs uppercase tracking-widest text-mute dark:text-[#666666] mb-4">Legal</p>
+        <h1>Privacy Policy.</h1>
+        <p class="text-body dark:text-[#a1a1a1]">Last updated: January 2025</p>
+
+        <h2>Information We Collect</h2>
+        <p>
+          When you fill out our contact form or book our services, we collect:
+        </p>
+        <ul>
+          <li>Your name and contact information (email, phone number)</li>
+          <li>Wedding date and venue details</li>
+          <li>Service preferences and requirements</li>
+          <li>Any other information you choose to share with us</li>
+        </ul>
+
+        <h2>How We Use Your Information</h2>
+        <p>We use your information to:</p>
+        <ul>
+          <li>Respond to your inquiries and provide quotes</li>
+          <li>Deliver our photography and videography services</li>
+          <li>Send you relevant information about your booking</li>
+          <li>Share your wedding photos with your permission</li>
+        </ul>
+
+        <h2>Data Protection</h2>
+        <p>
+          We take data protection seriously. Your personal information is stored securely and never shared with third parties without your explicit consent, except where required by law.
+        </p>
+
+        <h2>Photography Rights</h2>
+        <p>
+          We retain copyright of all photographs and videos we create. We may use images from your wedding for portfolio and marketing purposes unless you explicitly opt out.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          For any questions about this policy, please email us at <a href="mailto:hello@akreation.in">hello@akreation.in</a>.
+        </p>
+      </article>
+    </Container>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

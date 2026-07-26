@@ -1,0 +1,32 @@
+[
+  {
+    "city": "New Delhi",
+    "slug": "new-delhi",
+    "description": "From the grand venues of Chanakyapuri to the heritage havelis of Old Delhi, we've photographed weddings across every corner of the capital."
+  },
+  {
+    "city": "Gurugram",
+    "slug": "gurugram",
+    "description": "Modern luxury venues, farmhouses, and resort-style celebrations — Gurugram offers stunning backdrops for contemporary weddings."
+  },
+  {
+    "city": "Noida",
+    "slug": "noida",
+    "description": "Elegant banquet halls and garden venues make Noida a popular choice for couples seeking a blend of convenience and charm."
+  },
+  {
+    "city": "Faridabad",
+    "slug": "faridabad",
+    "description": "From traditional family celebrations to contemporary events, Faridabad's venues offer warmth and character for your special day."
+  },
+  {
+    "city": "Ghaziabad",
+    "slug": "ghaziabad",
+    "description": "Growing rapidly as a wedding destination, Ghaziabad offers excellent venues with easy accessibility from Delhi."
+  },
+  {
+    "city": "Greater Noida",
+    "slug": "greater-noida",
+    "description": "Sprawling resort venues and modern banquets — Greater Noida is perfect for grand, destination-style celebrations near Delhi."
+  }
+]

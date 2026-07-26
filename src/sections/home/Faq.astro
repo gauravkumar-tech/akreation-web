@@ -1,0 +1,40 @@
+---
+import Container from "../../components/ui/Container.astro";
+import SectionHeader from "../../components/ui/SectionHeader.astro";
+import FaqAccordion from "../../components/FaqAccordion.astro";
+---
+
+<section class="py-20 md:py-32 bg-canvas-soft dark:bg-[#0a0a0a]">
+  <Container>
+    <SectionHeader
+      eyebrow="FAQ"
+      title="Frequently asked questions"
+    />
+
+    <div class="mt-12 max-w-2xl mx-auto divide-y divide-hairline dark:divide-[#333333]">
+      <FaqAccordion question="How far in advance should we book?">
+        We recommend booking 6–12 months in advance for wedding photography, especially during peak season (October–March). Pre-wedding and engagement sessions can be booked 2–3 months ahead.
+      </FaqAccordion>
+
+      <FaqAccordion question="Do you travel outside Delhi NCR?">
+        Absolutely! We've photographed weddings across India — from Jaipur and Udaipur to Goa and Kerala. Travel fees apply for locations outside NCR, and we're happy to provide a custom quote.
+      </FaqAccordion>
+
+      <FaqAccordion question="How many photos will we receive?">
+        It depends on the package and coverage hours. Our Essential package includes 300+ photos, Premium includes 600+, and Luxe includes 1000+. Every photo is professionally edited and color-graded.
+      </FaqAccordion>
+
+      <FaqAccordion question="When will we get our photos?">
+        You'll receive your edited photos within 4–6 weeks of the wedding. Wedding films take 8–12 weeks. We also share a sneak peek of 20–30 photos within 48 hours of the wedding.
+      </FaqAccordion>
+
+      <FaqAccordion question="Do you offer video as well?">
+        Yes! We offer both photography and videography. Our Premium package includes a wedding highlight film, and our Luxe package includes a full cinematic wedding film with drone footage.
+      </FaqAccordion>
+
+      <FaqAccordion question="What if it rains on our wedding day?">
+        Rain can create incredibly romantic and dramatic photos! We always come prepared with weather-appropriate gear and creative backup plans. Some of our most stunning shots have been taken in the rain.
+      </FaqAccordion>
+    </div>
+  </Container>
+</section>

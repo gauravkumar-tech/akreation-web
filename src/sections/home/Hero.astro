@@ -1,0 +1,61 @@
+---
+import Container from "../../components/ui/Container.astro";
+import Button from "../../components/ui/Button.astro";
+---
+
+<section class="relative py-24 md:py-32 lg:py-48 overflow-hidden">
+  <!-- Background gradient -->
+  <div class="absolute inset-0 bg-gradient-to-br from-canvas-soft via-canvas to-canvas-soft-2 dark:from-[#0a0a0a] dark:via-[#111111] dark:to-[#0a0a0a]"></div>
+
+  <div class="relative z-10">
+    <Container>
+      <div class="max-w-3xl mx-auto text-center">
+        <p class="font-mono text-xs uppercase tracking-widest text-mute dark:text-[#666666] mb-6">
+          Delhi NCR Wedding Photography & Videography
+        </p>
+        <h1 class="font-semibold text-4xl md:text-[48px] leading-[1.1] tracking-[-0.04em] text-ink dark:text-[#ededed]">
+          Timeless stories, captured as they unfold.
+        </h1>
+        <p class="mt-6 text-lg md:text-xl leading-relaxed text-body dark:text-[#a1a1a1] max-w-2xl mx-auto">
+          A K Studio blends candid documentary and fine art editorial styles to preserve your most meaningful moments.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
+          <Button variant="primary" size="lg" href="/portfolio">View our work</Button>
+          <Button variant="secondary" size="lg" href="/contact">Book a consultation</Button>
+        </div>
+      </div>
+    </Container>
+
+    <!-- Hero Image -->
+    <div class="mt-16 md:mt-24">
+      <Container>
+        <div class="aspect-[21/9] max-w-5xl mx-auto rounded-xl overflow-hidden shadow-card-xl">
+          <img
+            src="https://placehold.co/1680x720/171717/fafafa?text=Your+Story+Starts+Here&font=inter"
+            alt="Wedding photography hero"
+            class="w-full h-full object-cover"
+            fetchpriority="high"
+          />
+        </div>
+      </Container>
+    </div>
+
+    <!-- Stats strip -->
+    <Container>
+      <div class="mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto">
+        <div class="text-center">
+          <p class="font-semibold text-2xl md:text-3xl tracking-tight text-ink dark:text-[#ededed]">500+</p>
+          <p class="text-xs text-mute dark:text-[#666666] mt-1">Weddings captured</p>
+        </div>
+        <div class="text-center">
+          <p class="font-semibold text-2xl md:text-3xl tracking-tight text-ink dark:text-[#ededed]">Since '85</p>
+          <p class="text-xs text-mute dark:text-[#666666] mt-1">Years in operation</p>
+        </div>
+        <div class="text-center">
+          <p class="font-semibold text-2xl md:text-3xl tracking-tight text-ink dark:text-[#ededed]">4.9</p>
+          <p class="text-xs text-mute dark:text-[#666666] mt-1">Google rating</p>
+        </div>
+      </div>
+    </Container>
+  </div>
+</section>

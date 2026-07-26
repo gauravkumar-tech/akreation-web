@@ -1,0 +1,74 @@
+---
+interface Props {
+  name: string;
+  tagline: string;
+  price: string;
+  originalPrice?: string;
+  savings?: string;
+  paymentType?: string;
+  currency?: string;
+  featured?: boolean;
+  features: string[];
+  cta?: string;
+  ctaHref?: string;
+  class?: string;
+}
+
+const {
+  name,
+  tagline,
+  price,
+  originalPrice,
+  savings,
+  paymentType = "One Time Payment",
+  currency = "₹",
+  featured = false,
+  features,
+  cta = "Book now",
+  ctaHref = "/contact",
+  class: className = "",
+} = Astro.props;
+
+const cardClass = featured
+  ? "bg-primary text-on-primary rounded-xl p-8 shadow-card-xl dark:bg-[#ededed] dark:text-[#171717]"
+  : "bg-canvas text-ink rounded-xl p-8 border border-hairline shadow-card dark:bg-[#111111] dark:text-[#ededed] dark:border-[#333333]";
+
+const ctaClass = featured
+  ? "w-full h-10 flex items-center justify-center rounded-[100px] bg-canvas text-ink font-medium text-sm hover:bg-canvas-soft-2 transition-colors dark:bg-[#ededed] dark:text-[#171717] dark:hover:bg-[#d4d4d4]"
+  : "w-full h-10 flex items-center justify-center rounded-[100px] bg-primary text-on-primary font-medium text-sm hover:bg-ink/80 transition-colors dark:bg-[#ededed] dark:text-[#171717] dark:hover:bg-[#d4d4d4]";
+---
+
+<div class={`${cardClass} ${className}`}>
+  <p class="font-mono text-xs uppercase tracking-widest opacity-60 mb-1">{name}</p>
+  <p class="text-sm opacity-70 mb-4">{tagline}</p>
+
+  <div class="mb-6">
+    {originalPrice && (
+      <span class="text-sm opacity-50 line-through">{currency}{originalPrice}</span>
+    )}
+    {savings && (
+      <span class="ml-2 inline-block px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider rounded-full bg-green-500/20 text-green-600 dark:bg-green-400/20 dark:text-green-400">
+        Save {savings}%
+      </span>
+    )}
+    <div class="flex items-baseline gap-1 mt-1">
+      <span class="text-sm opacity-70">{currency}</span>
+      <span class="text-4xl font-semibold tracking-tight">{price}</span>
+      <span class="text-xs opacity-60">/-</span>
+    </div>
+    <p class="text-xs opacity-60 mt-0.5">{paymentType}</p>
+  </div>
+
+  <ul class="space-y-3 mb-8">
+    {features.map((feature) => (
+      <li class="flex items-start gap-2.5 text-sm">
+        <svg class={`w-4 h-4 mt-0.5 shrink-0 ${featured ? "text-on-primary dark:text-[#171717]" : "text-link dark:text-[#0070f3]"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+        </svg>
+        <span class="opacity-80">{feature}</span>
+      </li>
+    ))}
+  </ul>
+
+  <a href={ctaHref} class={ctaClass}>{cta}</a>
+</div>

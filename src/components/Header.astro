@@ -1,0 +1,112 @@
+---
+import Container from "./ui/Container.astro";
+import Button from "./ui/Button.astro";
+
+const navLinks = [
+  { href: "/portfolio", label: "Portfolio" },
+  { href: "/services", label: "Services" },
+  { href: "/pricing", label: "Pricing" },
+  { href: "/blog", label: "Blog" },
+  { href: "/about", label: "About" },
+  { href: "/locations", label: "Locations" },
+  { href: "/contact", label: "Contact" },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header
+  class="sticky top-0 z-50 h-16 bg-canvas/80 backdrop-blur-lg border-b border-hairline dark:bg-[#0a0a0a]/80 dark:border-[#333333]"
+>
+  <Container class="flex items-center justify-between h-full">
+    <!-- Logo -->
+    <a
+      href="/"
+      class="font-semibold text-lg tracking-tight text-ink dark:text-[#ededed] shrink-0"
+    >
+      A K Studio
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="hidden md:flex items-center gap-1" aria-label="Main navigation">
+      {navLinks.slice(0, -1).map((link) => (
+        <a
+          href={link.href}
+          class={`px-3 py-1.5 text-sm rounded-full transition-colors ${
+            currentPath.startsWith(link.href)
+              ? "text-ink dark:text-[#ededed] bg-canvas-soft-2 dark:bg-[#1a1a1a]"
+              : "text-body dark:text-[#a1a1a1] hover:text-ink dark:hover:text-[#ededed] hover:bg-canvas-soft-2 dark:hover:bg-[#1a1a1a]"
+          }`}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <!-- Right cluster -->
+    <div class="flex items-center gap-2">
+      <Button variant="primary" size="sm" href="/contact" class="hidden sm:inline-flex">
+        Get in touch
+      </Button>
+
+      <!-- Dark mode toggle -->
+      <button
+        class="w-8 h-8 flex items-center justify-center rounded-full border border-hairline hover:bg-canvas-soft-2 dark:border-[#333333] dark:hover:bg-[#1a1a1a] transition-colors"
+        aria-label="Toggle dark mode"
+        onclick="const isDark=document.documentElement.classList.toggle('dark');localStorage.setItem('theme',isDark?'dark':'light')"
+      >
+        <svg class="w-4 h-4 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+        </svg>
+        <svg class="w-4 h-4 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+        </svg>
+      </button>
+
+      <!-- Mobile hamburger (details/summary approach) -->
+      <details class="md:hidden group relative">
+        <summary
+          class="w-8 h-8 flex items-center justify-center rounded-full border border-hairline dark:border-[#333333] cursor-pointer list-none"
+          aria-label="Open menu"
+        >
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </summary>
+
+        <!-- Mobile Menu Dropdown -->
+        <div class="fixed left-0 right-0 top-16 z-50 bg-white dark:bg-[#0a0a0a] border-t border-[#ebebeb] dark:border-[#333333] shadow-xl">
+          <nav class="flex flex-col p-6 gap-1" aria-label="Mobile navigation">
+            {navLinks.map((link) => (
+              <a
+                href={link.href}
+                class="block px-4 py-3.5 text-base font-medium rounded-lg transition-colors text-[#4d4d4d] dark:text-[#a1a1a1] hover:text-[#171717] dark:hover:text-[#ededed] hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a]"
+                onclick="this.closest('details').removeAttribute('open')"
+              >
+                {link.label}
+              </a>
+            ))}
+            <div class="mt-4 pt-4 border-t border-[#ebebeb] dark:border-[#333333]">
+              <a href="/contact" class="w-full h-11 inline-flex items-center justify-center rounded-[100px] bg-[#171717] text-white font-medium text-sm hover:bg-[#171717]/80 dark:bg-[#ededed] dark:text-[#171717] dark:hover:bg-[#d4d4d4] transition-colors"
+                onclick="this.closest('details').removeAttribute('open')">
+                Get in touch
+              </a>
+            </div>
+          </nav>
+        </div>
+      </details>
+    </div>
+  </Container>
+</header>
+
+<!-- ESC key closes mobile menu (we close all details elements) -->
+<script is:inline>
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") {
+      document.querySelectorAll("details").forEach(function(d) { d.removeAttribute("open"); });
+    }
+  });
+  window.matchMedia("(min-width: 768px)").addEventListener("change", function(e) {
+    if (e.matches) document.querySelectorAll("details").forEach(function(d) { d.removeAttribute("open"); });
+  });
+</script>

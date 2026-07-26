@@ -1,0 +1,50 @@
+---
+interface Props {
+  label: string;
+  name: string;
+  type?: string;
+  placeholder?: string;
+  required?: boolean;
+  class?: string;
+  id?: string;
+  value?: string;
+  min?: string;
+  max?: string;
+}
+
+const {
+  label,
+  name,
+  type = "text",
+  placeholder,
+  required = false,
+  class: className = "",
+  id,
+  value,
+  min,
+  max,
+} = Astro.props;
+
+const inputId = id || name;
+---
+
+<div class={className}>
+  <label
+    for={inputId}
+    class="block text-sm font-medium text-ink dark:text-[#ededed] mb-1.5"
+  >
+    {label}
+    {required && <span class="text-error">*</span>}
+  </label>
+  <input
+    type={type}
+    name={name}
+    id={inputId}
+    placeholder={placeholder}
+    required={required}
+    value={value}
+    min={min}
+    max={max}
+    class="w-full h-10 px-3 text-sm bg-canvas text-ink border border-hairline rounded-md placeholder:text-mute focus:outline-none focus:ring-2 focus:ring-link/20 focus:border-link dark:bg-[#111111] dark:text-[#ededed] dark:border-[#333333] dark:placeholder:text-[#666666] dark:focus:ring-[#0070f3]/20 dark:focus:border-[#0070f3]"
+  />
+</div>

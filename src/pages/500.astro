@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Container from "../components/ui/Container.astro";
+import Button from "../components/ui/Button.astro";
+---
+
+<BaseLayout
+  title="Server Error"
+  description="Something went wrong on our end. Please try again."
+>
+  <Header slot="header" />
+
+  <section class="py-24 md:py-40">
+    <Container>
+      <div class="max-w-lg mx-auto text-center">
+        <p class="font-mono text-8xl font-semibold text-hairline dark:text-[#333333] leading-none">500</p>
+        <h1 class="mt-6 font-semibold text-3xl md:text-4xl leading-tight tracking-[-0.03em] text-ink dark:text-[#ededed]">
+          Something went wrong.
+        </h1>
+        <p class="mt-4 text-lg text-body dark:text-[#a1a1a1]">
+          Our team has been notified. Please try again or get in touch with us directly.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Button variant="primary" size="lg" href="/">
+            Back to home
+          </Button>
+          <Button variant="secondary" size="lg" href="/contact">
+            Get in touch
+          </Button>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

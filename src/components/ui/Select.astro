@@ -1,0 +1,41 @@
+---
+interface Props {
+  label: string;
+  name: string;
+  options: { value: string; label: string }[];
+  required?: boolean;
+  class?: string;
+  id?: string;
+}
+
+const {
+  label,
+  name,
+  options,
+  required = false,
+  class: className = "",
+  id,
+} = Astro.props;
+
+const selectId = id || name;
+---
+
+<div class={className}>
+  <label
+    for={selectId}
+    class="block text-sm font-medium text-ink dark:text-[#ededed] mb-1.5"
+  >
+    {label}
+    {required && <span class="text-error">*</span>}
+  </label>
+  <select
+    name={name}
+    id={selectId}
+    required={required}
+    class="w-full h-10 px-3 text-sm bg-canvas text-ink border border-hairline rounded-md focus:outline-none focus:ring-2 focus:ring-link/20 focus:border-link dark:bg-[#111111] dark:text-[#ededed] dark:border-[#333333] dark:focus:ring-[#0070f3]/20 dark:focus:border-[#0070f3]"
+  >
+    {options.map((opt) => (
+      <option value={opt.value}>{opt.label}</option>
+    ))}
+  </select>
+</div>

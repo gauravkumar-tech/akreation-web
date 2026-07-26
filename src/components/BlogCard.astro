@@ -1,0 +1,62 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  date: string;
+  category: string;
+  slug: string;
+  image?: string;
+  class?: string;
+}
+
+const {
+  title,
+  description,
+  date,
+  category,
+  slug,
+  image,
+  class: className = "",
+} = Astro.props;
+
+const formattedDate = new Date(date).toLocaleDateString("en-IN", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+
+const imgSrc =
+  image ||
+  `https://placehold.co/800x500/171717/fafafa?text=${encodeURIComponent(
+    category.charAt(0).toUpperCase() + category.slice(1)
+  )}&font=inter`;
+---
+
+<a
+  href={`/blog/${slug}`}
+  class={`group block bg-canvas rounded-lg border border-hairline overflow-hidden shadow-card hover:shadow-card-lg transition-shadow dark:bg-[#111111] dark:border-[#333333] ${className}`}
+>
+  <div class="aspect-[16/10] bg-canvas-soft-2 dark:bg-[#1a1a1a] overflow-hidden">
+    <img
+      src={imgSrc}
+      alt={title}
+      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+      loading="lazy"
+    />
+  </div>
+
+  <!-- Content -->
+  <div class="p-5">
+    <div class="flex items-center gap-2 mb-2">
+      <span class="text-xs font-mono uppercase tracking-wider text-link dark:text-[#0070f3]">{category}</span>
+      <span class="text-xs text-mute dark:text-[#666666]">&middot;</span>
+      <time class="text-xs text-mute dark:text-[#666666]" datetime={date}>{formattedDate}</time>
+    </div>
+    <h3 class="font-semibold text-base text-ink dark:text-[#ededed] group-hover:text-body dark:group-hover:text-[#a1a1a1] transition-colors leading-snug">
+      {title}
+    </h3>
+    <p class="mt-2 text-sm text-body dark:text-[#a1a1a1] line-clamp-2">
+      {description}
+    </p>
+  </div>
+</a>

@@ -1,0 +1,92 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import Container from "../../components/ui/Container.astro";
+import Button from "../../components/ui/Button.astro";
+import portfolio from "../../data/portfolio.json";
+
+export async function getStaticPaths() {
+  return portfolio.map((item) => ({
+    params: { slug: item.id },
+    props: { item },
+  }));
+}
+
+const { item } = Astro.props;
+---
+
+<BaseLayout
+  title={item.title}
+  description={item.description}
+>
+  <Header slot="header" />
+
+  <section class="py-16 md:py-24">
+    <Container>
+      <div class="max-w-4xl mx-auto">
+        <!-- Back link -->
+        <a href="/portfolio" class="inline-flex items-center gap-1.5 text-sm text-body dark:text-[#a1a1a1] hover:text-ink dark:hover:text-[#ededed] transition-colors mb-8">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5m0 0l7 7m-7-7l7-7" />
+          </svg>
+          Back to portfolio
+        </a>
+
+        <!-- Header -->
+        <p class="font-mono text-xs uppercase tracking-widest text-mute dark:text-[#666666] mb-3">
+          {item.style}
+        </p>
+        <h1 class="font-semibold text-3xl md:text-[40px] leading-tight tracking-[-0.03em] text-ink dark:text-[#ededed]">
+          {item.couple}
+        </h1>
+        <p class="mt-2 text-lg text-body dark:text-[#a1a1a1]">{item.venue}</p>
+        <p class="mt-1 text-sm text-mute dark:text-[#666666]">{new Date(item.date).toLocaleDateString("en-IN", { year: "numeric", month: "long", day: "numeric" })}</p>
+
+        <!-- Description -->
+        <p class="mt-8 text-base text-body dark:text-[#a1a1a1] leading-relaxed max-w-2xl">
+          {item.description}
+        </p>
+
+        <!-- Gallery -->
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-4">
+          {item.images.length > 0 ? item.images.map((img) => (
+            <div class="aspect-[4/3] rounded-lg overflow-hidden">
+              <img src={img} alt={`${item.couple} photo`} class="w-full h-full object-cover" loading="lazy" />
+            </div>
+          )) : (
+            <div class="aspect-[4/3] rounded-lg overflow-hidden">
+              <img
+                src={`https://placehold.co/800x600/171717/fafafa?text=${encodeURIComponent(item.couple)}&font=inter`}
+                alt={`${item.couple} photo`}
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+            <div class="aspect-[4/3] rounded-lg overflow-hidden">
+              <img
+                src={`https://placehold.co/800x600/1a1a2e/eef0f5?text=${encodeURIComponent(item.venue)}&font=inter`}
+                alt={`${item.couple} at ${item.venue}`}
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          )}
+        </div>
+
+        <!-- CTA -->
+        <div class="mt-16 p-8 bg-canvas-soft dark:bg-[#0a0a0a] rounded-xl text-center">
+          <p class="text-lg font-medium text-ink dark:text-[#ededed]">Love this style?</p>
+          <p class="mt-1 text-sm text-body dark:text-[#a1a1a1]">Let's create something similar for your wedding.</p>
+          <div class="mt-5">
+            <Button variant="primary" size="md" href="/contact">
+              Book your wedding
+            </Button>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

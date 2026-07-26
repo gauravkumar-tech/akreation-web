@@ -1,0 +1,38 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Container from "../components/ui/Container.astro";
+import Button from "../components/ui/Button.astro";
+---
+
+<BaseLayout
+  title="Page Not Found"
+  description="The page you're looking for doesn't exist. Let's get you back on track."
+>
+  <Header slot="header" />
+
+  <section class="py-24 md:py-40">
+    <Container>
+      <div class="max-w-lg mx-auto text-center">
+        <p class="font-mono text-8xl font-semibold text-hairline dark:text-[#333333] leading-none">404</p>
+        <h1 class="mt-6 font-semibold text-3xl md:text-4xl leading-tight tracking-[-0.03em] text-ink dark:text-[#ededed]">
+          Page not found.
+        </h1>
+        <p class="mt-4 text-lg text-body dark:text-[#a1a1a1]">
+          Looks like this page wandered off. Let's get you back to the wedding.
+        </p>
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Button variant="primary" size="lg" href="/">
+            Back to home
+          </Button>
+          <Button variant="secondary" size="lg" href="/portfolio">
+            View portfolio
+          </Button>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

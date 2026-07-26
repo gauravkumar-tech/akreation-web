@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "name": "Ananya & Vikram",
+    "date": "December 2024",
+    "text": "A K Studio captured our wedding so beautifully. Every emotion, every detail — they made sure nothing was missed. The photos feel like reliving the day all over again.",
+    "service": "Photography + Videography",
+    "rating": 5,
+    "avatar": "https://placehold.co/48x48/171717/ffffff?text=A&font=inter"
+  },
+  {
+    "id": 2,
+    "name": "Priya & Rahul",
+    "date": "November 2024",
+    "text": "We were nervous about being photographed, but the team made us feel so comfortable. The candid shots are our favorites — they captured moments we didn't even know happened.",
+    "service": "Wedding Photography",
+    "rating": 5,
+    "avatar": "https://placehold.co/48x48/171717/ffffff?text=P&font=inter"
+  },
+  {
+    "id": 3,
+    "name": "Neha & Karan",
+    "date": "October 2024",
+    "text": "The wedding film they created is absolutely cinematic. Our families have watched it over 20 times already. Worth every penny — truly an investment in memories.",
+    "service": "Photography + Videography",
+    "rating": 5,
+    "avatar": "https://placehold.co/48x48/171717/ffffff?text=N&font=inter"
+  },
+  {
+    "id": 4,
+    "name": "Meera & Arjun",
+    "date": "September 2024",
+    "text": "Our pre-wedding shoot was so much fun. They chose the perfect locations and timing. The golden hour shots are stunning — we used them for our wedding invites!",
+    "service": "Pre-Wedding",
+    "rating": 5,
+    "avatar": "https://placehold.co/48x48/171717/ffffff?text=MM&font=inter"
+  },
+  {
+    "id": 5,
+    "name": "Divya & Aman",
+    "date": "August 2024",
+    "text": "From the first consultation to the final album delivery, everything was professional and seamless. They understood our vision and executed it perfectly.",
+    "service": "Photography + Videography",
+    "rating": 5,
+    "avatar": "https://placehold.co/48x48/171717/ffffff?text=D&font=inter"
+  },
+  {
+    "id": 6,
+    "name": "Shruti & Aditya",
+    "date": "July 2024",
+    "text": "We booked A K Studio for our engagement and wedding. The consistency in quality across both events was remarkable. Highly recommend for any couple!",
+    "service": "Engagement + Wedding",
+    "rating": 5,
+    "avatar": "https://placehold.co/48x48/171717/ffffff?text=S&font=inter"
+  }
+]

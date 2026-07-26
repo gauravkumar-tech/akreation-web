@@ -1,0 +1,29 @@
+---
+import Container from "../../components/ui/Container.astro";
+import SectionHeader from "../../components/ui/SectionHeader.astro";
+import TestimonialCard from "../../components/TestimonialCard.astro";
+import testimonials from "../../data/testimonials.json";
+---
+
+<section class="py-20 md:py-32 bg-canvas-soft dark:bg-[#0a0a0a]">
+  <Container>
+    <SectionHeader
+      eyebrow="What couples say"
+      title="Trusted by hundreds of couples"
+      description="Don't just take our word for it. Here's what our couples have to say about working with A K Studio."
+    />
+
+    <div class="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {testimonials.slice(0, 6).map((t) => (
+        <TestimonialCard
+          name={t.name}
+          date={t.date}
+          text={t.text}
+          service={t.service}
+          rating={t.rating}
+          avatar={t.avatar}
+        />
+      ))}
+    </div>
+  </Container>
+</section>

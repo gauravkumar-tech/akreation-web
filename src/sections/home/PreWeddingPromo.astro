@@ -1,0 +1,47 @@
+---
+import Container from "../../components/ui/Container.astro";
+import Button from "../../components/ui/Button.astro";
+---
+
+<section class="py-20 md:py-32">
+  <Container>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <!-- Image -->
+      <div class="aspect-[4/5] rounded-xl overflow-hidden shadow-card-lg">
+        <img
+          src="https://placehold.co/600x750/171717/fafafa?text=Pre-Wedding+Session&font=inter"
+          alt="Pre-wedding engagement session"
+          class="w-full h-full object-cover"
+          loading="lazy"
+        />
+      </div>
+
+      <!-- Content -->
+      <div>
+        <p class="font-mono text-xs uppercase tracking-widest text-mute dark:text-[#666666] mb-4">
+          Pre-wedding & engagement
+        </p>
+        <h2 class="font-semibold text-3xl md:text-[32px] leading-10 tracking-[-0.026em] text-ink dark:text-[#ededed]">
+          Before the big day.
+        </h2>
+        <p class="mt-4 text-lg leading-7 text-body dark:text-[#a1a1a1]">
+          Your love story didn't start at the altar. Our pre-wedding and engagement sessions capture the excitement, anticipation, and joy of this special time in your lives.
+        </p>
+        <p class="mt-3 text-base text-body dark:text-[#a1a1a1]">
+          Choose from iconic Delhi locations — Lodhi Garden, Humayun's Tomb, Connaught Place, or a spot that's meaningful to you. We'll create images perfect for save-the-dates, wedding invites, and social media.
+        </p>
+
+        <div class="mt-6 inline-flex items-baseline gap-2 px-4 py-2 rounded-full bg-canvas-soft-2 dark:bg-[#1a1a1a] border border-hairline dark:border-[#333333]">
+          <span class="text-sm text-body dark:text-[#a1a1a1]">Starting from</span>
+          <span class="font-semibold text-ink dark:text-[#ededed]">₹15,000</span>
+        </div>
+
+        <div class="mt-8">
+          <Button variant="primary" size="md" href="/services#pre-wedding">
+            Book your session
+          </Button>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>

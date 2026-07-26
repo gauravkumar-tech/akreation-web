@@ -1,0 +1,48 @@
+---
+interface Props {
+  type: "LocalBusiness" | "BlogPosting" | "BreadcrumbList";
+  data?: Record<string, unknown>;
+}
+
+const { type, data = {} } = Astro.props;
+
+const base = type === "LocalBusiness"
+  ? {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      name: "A K Studio",
+      description: "Wedding photography and videography studio in Delhi NCR",
+      url: "https://akreation.in",
+      telephone: "+91-9999999999",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "New Delhi",
+        addressRegion: "Delhi",
+        addressCountry: "IN",
+      },
+      geo: { "@type": "GeoCoordinates", latitude: "28.6139", longitude: "77.2090" },
+      priceRange: "₹15,000 – ₹1,25,000+",
+      image: "https://akreation.in/favicon.svg",
+      sameAs: [
+        "https://instagram.com/ak.studio",
+        "https://youtube.com/@akstudio",
+        "https://wa.me/919999999999",
+      ],
+      openingHours: "Mo-Sa 09:00-19:00",
+      aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "4.9",
+        reviewCount: "150",
+      },
+      ...data,
+    }
+  : type === "BreadcrumbList"
+  ? {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: data.itemListElement || [],
+    }
+  : data;
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(base)}></script>

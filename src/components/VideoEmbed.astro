@@ -1,0 +1,31 @@
+---
+interface Props {
+  videoId: string;
+  platform?: "youtube" | "vimeo";
+  title?: string;
+  class?: string;
+}
+
+const {
+  videoId,
+  platform = "youtube",
+  title = "Wedding highlight reel",
+  class: className = "",
+} = Astro.props;
+
+const src =
+  platform === "youtube"
+    ? `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1`
+    : `https://player.vimeo.com/video/${videoId}?byline=0&portrait=0`;
+---
+
+<div class={`relative aspect-video rounded-xl overflow-hidden shadow-card-xl dark:shadow-none dark:border dark:border-[#333333] ${className}`}>
+  <iframe
+    {src}
+    {title}
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    loading="lazy"
+    class="absolute inset-0 w-full h-full"
+  ></iframe>
+</div>

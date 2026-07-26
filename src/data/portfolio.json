@@ -1,0 +1,83 @@
+[
+  {
+    "id": "priya-rahul-wedding",
+    "title": "Priya & Rahul's Wedding",
+    "couple": "Priya & Rahul",
+    "venue": "The Leela Palace, Delhi",
+    "date": "2025-11-15",
+    "category": "wedding",
+    "style": "candid",
+    "coverImage": "https://placehold.co/800x600/171717/fafafa?text=Priya+%26+Rahul&font=inter",
+    "images": [
+      "https://placehold.co/800x600/1a1a2e/eef0f5?text=Ceremony&font=inter",
+      "https://placehold.co/800x600/16213e/ccd6f0?text=Reception&font=inter"
+    ],
+    "description": "A beautiful winter wedding at The Leela Palace, Delhi. Candid moments, emotional vows, and a grand reception.",
+    "featured": true
+  },
+  {
+    "id": "ananya-vikram-wedding",
+    "title": "Ananya & Vikram's Wedding",
+    "couple": "Ananya & Vikram",
+    "venue": "Taj Palace, New Delhi",
+    "date": "2025-10-22",
+    "category": "wedding",
+    "style": "editorial",
+    "coverImage": "https://placehold.co/800x600/171717/fafafa?text=Ananya+%26+Vikram&font=inter",
+    "images": [],
+    "description": "An elegant celebration at the Taj Palace with fine art editorial photography and cinematic videography.",
+    "featured": true
+  },
+  {
+    "id": "meera-arjun-prewedding",
+    "title": "Meera & Arjun Pre-Wedding",
+    "couple": "Meera & Arjun",
+    "venue": "Lodhi Garden, Delhi",
+    "date": "2025-09-10",
+    "category": "pre-wedding",
+    "style": "candid",
+    "coverImage": "https://placehold.co/800x600/171717/fafafa?text=Meera+%26+Arjun&font=inter",
+    "images": [],
+    "description": "A dreamy pre-wedding session at Lodhi Garden during golden hour. Natural light, lush greenery, and genuine laughter.",
+    "featured": false
+  },
+  {
+    "id": "neha-karan-wedding",
+    "title": "Neha & Karan's Wedding",
+    "couple": "Neha & Karan",
+    "venue": "The Oberoi, Gurugram",
+    "date": "2025-08-18",
+    "category": "wedding",
+    "style": "traditional",
+    "coverImage": "https://placehold.co/800x600/171717/fafafa?text=Neha+%26+Karan&font=inter",
+    "images": [],
+    "description": "A vibrant multi-day wedding celebration at The Oberoi, Gurugram. Traditional rituals captured with a modern aesthetic.",
+    "featured": true
+  },
+  {
+    "id": "shruti-aditya-engagement",
+    "title": "Shruti & Aditya's Engagement",
+    "couple": "Shruti & Aditya",
+    "venue": "Private Residence, Noida",
+    "date": "2025-07-05",
+    "category": "engagement",
+    "style": "candid",
+    "coverImage": "https://placehold.co/800x600/171717/fafafa?text=Shruti+%26+Aditya&font=inter",
+    "images": [],
+    "description": "An intimate engagement party at a private residence in Noida. Warm lighting, family moments, and joyful celebrations.",
+    "featured": false
+  },
+  {
+    "id": "divya-aman-wedding",
+    "title": "Divya & Aman's Wedding",
+    "couple": "Divya & Aman",
+    "venue": "ITC Grand Bharat, Gurugram",
+    "date": "2025-06-20",
+    "category": "wedding",
+    "style": "editorial",
+    "coverImage": "https://placehold.co/800x600/171717/fafafa?text=Divya+%26+Aman&font=inter",
+    "images": [],
+    "description": "A destination-style wedding at ITC Grand Bharat. Dramatic architecture, sunset ceremonies, and cinematic storytelling.",
+    "featured": false
+  }
+]

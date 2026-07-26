@@ -1,0 +1,83 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import Container from "../../components/ui/Container.astro";
+import Button from "../../components/ui/Button.astro";
+import locations from "../../data/locations.json";
+
+export async function getStaticPaths() {
+  return locations.map((loc) => ({
+    params: { slug: loc.slug },
+    props: { location: loc },
+  }));
+}
+
+const { location } = Astro.props;
+const otherCities = locations.filter((l) => l.slug !== location.slug);
+---
+
+<BaseLayout
+  title={`${location.city} Wedding Photography`}
+  description={`Wedding photography and videography in ${location.city}. A K Studio captures love stories across ${location.city} with candid, traditional, and fine art styles.`}
+>
+  <Header slot="header" />
+
+  <section class="py-20 md:py-32">
+    <Container>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div>
+          <p class="font-mono text-xs uppercase tracking-widest text-mute dark:text-[#666666] mb-4">
+            Wedding photography in
+          </p>
+          <h1 class="font-semibold text-4xl md:text-[48px] leading-[1.1] tracking-[-0.04em] text-ink dark:text-[#ededed]">
+            {location.city}.
+          </h1>
+          <p class="mt-6 text-lg leading-7 text-body dark:text-[#a1a1a1]">
+            {location.description}
+          </p>
+          <p class="mt-4 text-base text-body dark:text-[#a1a1a1]">
+            We've had the privilege of photographing beautiful weddings at {location.city}'s finest venues. Our team knows the best locations, lighting conditions, and timing to create stunning wedding imagery.
+          </p>
+          <div class="mt-8 flex flex-col sm:flex-row gap-4">
+            <Button variant="primary" size="md" href="/contact">
+              Book in {location.city}
+            </Button>
+            <Button variant="secondary" size="md" href="/portfolio">
+              See {location.city} weddings
+            </Button>
+          </div>
+        </div>
+        <div class="aspect-[4/3] rounded-xl overflow-hidden shadow-card-lg">
+          <img
+            src={`https://placehold.co/800x600/171717/fafafa?text=${encodeURIComponent(location.city)}&font=inter`}
+            alt={`Wedding venues in ${location.city}`}
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Other cities -->
+  <section class="py-20 md:py-32 bg-canvas-soft dark:bg-[#0a0a0a]">
+    <Container>
+      <h2 class="font-semibold text-2xl md:text-3xl leading-10 tracking-[-0.02em] text-center text-ink dark:text-[#ededed] mb-10">
+        Also serving across Delhi NCR
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {otherCities.map((loc) => (
+          <a
+            href={`/locations/${loc.slug}`}
+            class="block px-5 py-3 bg-canvas dark:bg-[#111111] rounded-lg border border-hairline dark:border-[#333333] text-sm text-body dark:text-[#a1a1a1] hover:text-ink dark:hover:text-[#ededed] hover:border-hairline-strong transition-colors"
+          >
+            {loc.city}
+          </a>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

@@ -1,0 +1,63 @@
+[
+  {
+    "id": "essential",
+    "name": "Essential",
+    "tagline": "Perfect for intimate celebrations",
+    "price": "35,000",
+    "originalPrice": "64,050",
+    "savings": "83",
+    "currency": "₹",
+    "paymentType": "One Time Payment",
+    "featured": false,
+    "features": [
+      "1 Small Function (Roka, Haldi, Mehndi, Reception, etc) & Wedding",
+      "All Raw data (Photos)",
+      "Full HD Video film",
+      "1 Teaser / Highlight"
+    ],
+    "cta": "Book Essential",
+    "ctaHref": "/contact"
+  },
+  {
+    "id": "premium",
+    "name": "Premium",
+    "tagline": "Our most popular package",
+    "price": "55,000",
+    "originalPrice": "96,250",
+    "savings": "75",
+    "currency": "₹",
+    "paymentType": "One Time Payment",
+    "featured": true,
+    "features": [
+      "2 Small Functions (Roka, Haldi, Mehndi, Reception, etc) & Wedding",
+      "All Raw data (Photos)",
+      "Full HD Video film",
+      "1 Teaser / Highlight",
+      "Candid photography on Wedding",
+      "1 16×20 Photo with frame"
+    ],
+    "cta": "Book Premium",
+    "ctaHref": "/contact"
+  },
+  {
+    "id": "luxe",
+    "name": "Luxe",
+    "tagline": "Complete wedding experience",
+    "price": "75,000",
+    "originalPrice": "123,000",
+    "savings": "64",
+    "currency": "₹",
+    "paymentType": "One Time Payment",
+    "featured": false,
+    "features": [
+      "3 Small Functions (Roka, Haldi, Mehndi, Reception, etc) & Wedding",
+      "All Raw data (Photos)",
+      "Full HD Video film",
+      "1 Teaser / Highlight",
+      "Candid photography on any 2 small functions and Wedding",
+      "1 24×36 Photo with frame"
+    ],
+    "cta": "Book Luxe",
+    "ctaHref": "/contact"
+  }
+]

@@ -1,0 +1,87 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Container from "../components/ui/Container.astro";
+import Button from "../components/ui/Button.astro";
+import PricingCard from "../components/PricingCard.astro";
+import pricing from "../data/pricing.json";
+---
+
+<BaseLayout
+  title="Pricing"
+  description="Transparent pricing for wedding photography and videography in Delhi NCR. Essential ₹35K, Premium ₹65K, Luxe ₹1.25L. Every package includes professional editing and online gallery."
+>
+  <Header slot="header" />
+
+  <!-- Hero -->
+  <section class="py-20 md:py-32">
+    <Container>
+      <div class="max-w-3xl mx-auto text-center">
+        <p class="font-mono text-xs uppercase tracking-widest text-mute dark:text-[#666666] mb-4">Pricing</p>
+        <h1 class="font-semibold text-4xl md:text-[48px] leading-[1.1] tracking-[-0.04em] text-ink dark:text-[#ededed]">
+          Transparent pricing.
+        </h1>
+        <p class="mt-6 text-lg leading-7 text-body dark:text-[#a1a1a1] max-w-2xl mx-auto">
+          No hidden fees, no surprise charges. Choose the package that fits your celebration. All prices are in INR and include GST.
+        </p>
+      </div>
+
+      <!-- Pricing Cards -->
+      <div class="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        {pricing.map((tier, i) => (
+          <PricingCard
+            {...tier}
+            class={tier.featured ? "lg:-mt-4 lg:mb-4" : ""}
+          />
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- Comparison FAQ -->
+  <section class="py-20 md:py-32 bg-canvas-soft dark:bg-[#0a0a0a]">
+    <Container>
+      <div class="max-w-2xl mx-auto">
+        <h2 class="font-semibold text-3xl md:text-[32px] leading-10 tracking-[-0.026em] text-center text-ink dark:text-[#ededed]">
+          Questions about pricing.
+        </h2>
+
+        <div class="mt-12 space-y-6">
+          <div class="bg-canvas dark:bg-[#111111] rounded-lg border border-hairline dark:border-[#333333] p-6">
+            <h3 class="font-medium text-base text-ink dark:text-[#ededed] mb-2">What's included in the price?</h3>
+            <p class="text-sm text-body dark:text-[#a1a1a1] leading-relaxed">
+              Every package includes professional editing, color grading, an online gallery to share with family, and full print release so you can order prints anywhere.
+            </p>
+          </div>
+          <div class="bg-canvas dark:bg-[#111111] rounded-lg border border-hairline dark:border-[#333333] p-6">
+            <h3 class="font-medium text-base text-ink dark:text-[#ededed] mb-2">Do you offer payment plans?</h3>
+            <p class="text-sm text-body dark:text-[#a1a1a1] leading-relaxed">
+              Yes! We offer flexible payment plans. A 25% booking fee secures your date, with the remaining balance split into 2–3 installments leading up to the wedding.
+            </p>
+          </div>
+          <div class="bg-canvas dark:bg-[#111111] rounded-lg border border-hairline dark:border-[#333333] p-6">
+            <h3 class="font-medium text-base text-ink dark:text-[#ededed] mb-2">Can we customize a package?</h3>
+            <p class="text-sm text-body dark:text-[#a1a1a1] leading-relaxed">
+              Absolutely. Every wedding is unique. We're happy to add extra hours, a second shooter, or specific deliverables. Contact us for a custom quote.
+            </p>
+          </div>
+          <div class="bg-canvas dark:bg-[#111111] rounded-lg border border-hairline dark:border-[#333333] p-6">
+            <h3 class="font-medium text-base text-ink dark:text-[#ededed] mb-2">How do travel fees work?</h3>
+            <p class="text-sm text-body dark:text-[#a1a1a1] leading-relaxed">
+              There are no travel fees within Delhi NCR. For weddings outside NCR, we charge actual travel costs plus accommodation. We've photographed weddings across India and love traveling for couples.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-10 text-center">
+          <Button variant="primary" size="md" href="/contact">
+            Have questions? Let's talk
+          </Button>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

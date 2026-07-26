@@ -1,0 +1,23 @@
+---
+import Container from "../../components/ui/Container.astro";
+import SectionHeader from "../../components/ui/SectionHeader.astro";
+import VideoEmbed from "../../components/VideoEmbed.astro";
+---
+
+<section class="py-20 md:py-32 bg-canvas-soft dark:bg-[#0a0a0a]">
+  <Container>
+    <SectionHeader
+      eyebrow="Watch our films"
+      title="Moving moments, preserved forever"
+      description="Every wedding has a soundtrack. Our cinematic films bring together the best visuals and music to tell your complete story."
+    />
+
+    <div class="mt-12 max-w-4xl mx-auto">
+      <VideoEmbed
+        videoId="dQw4w9WgXcQ"
+        platform="youtube"
+        title="A K Studio — Wedding Film Showreel"
+      />
+    </div>
+  </Container>
+</section>

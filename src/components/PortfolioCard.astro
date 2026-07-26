@@ -1,0 +1,44 @@
+---
+interface Props {
+  title: string;
+  couple: string;
+  venue: string;
+  category: string;
+  coverImage: string;
+  slug: string;
+  class?: string;
+}
+
+const {
+  title,
+  couple,
+  venue,
+  category,
+  coverImage,
+  slug,
+  class: className = "",
+} = Astro.props;
+---
+
+<a
+  href={`/portfolio/${slug}`}
+  class={`group relative block overflow-hidden rounded-lg ${className}`}
+  data-category={category}
+>
+  <div class="aspect-[4/3] bg-canvas-soft-2 dark:bg-[#1a1a1a] overflow-hidden">
+    <img
+      src={coverImage}
+      alt={`${couple} — ${venue}`}
+      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+      loading="lazy"
+    />
+  </div>
+
+  <!-- Overlay -->
+  <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
+    <div>
+      <p class="text-white font-medium text-base">{couple}</p>
+      <p class="text-white/70 text-sm">{venue}</p>
+    </div>
+  </div>
+</a>

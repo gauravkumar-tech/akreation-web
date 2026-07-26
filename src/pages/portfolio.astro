@@ -1,0 +1,123 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Container from "../components/ui/Container.astro";
+import SectionHeader from "../components/ui/SectionHeader.astro";
+import Button from "../components/ui/Button.astro";
+import PortfolioCard from "../components/PortfolioCard.astro";
+import portfolio from "../data/portfolio.json";
+
+const categories = [
+  { value: "all", label: "All" },
+  { value: "wedding", label: "Weddings" },
+  { value: "pre-wedding", label: "Pre-Wedding" },
+  { value: "engagement", label: "Engagement" },
+];
+---
+
+<BaseLayout
+  title="Portfolio"
+  description="View our wedding portfolio. Delhi NCR wedding photography and videography gallery featuring candid, traditional, and fine art styles."
+>
+  <Header slot="header" />
+
+  <!-- Page header -->
+  <section class="py-20 md:py-32">
+    <Container>
+      <SectionHeader
+        eyebrow="Portfolio"
+        title="Our work"
+        description="Every wedding tells a different story. Browse through our recent work and find inspiration for your own celebration."
+      />
+    </Container>
+  </section>
+
+  <!-- Filter bar -->
+  <section class="-mt-12 pb-12">
+    <Container>
+      <div id="filter-bar" class="flex flex-wrap items-center justify-center gap-2" role="tablist" aria-label="Filter portfolio by category">
+        {categories.map((cat) => (
+          <button
+            class="filter-btn px-4 py-1.5 text-sm rounded-full transition-colors data-[active=true]:bg-primary data-[active=true]:text-on-primary data-[active=false]:text-body data-[active=false]:hover:text-ink bg-canvas-soft-2 dark:bg-[#1a1a1a] dark:data-[active=true]:bg-[#ededed] dark:data-[active=true]:text-[#171717] dark:data-[active=false]:text-[#a1a1a1] dark:hover:bg-[#333333]"
+            data-category={cat.value}
+            data-active={cat.value === "all" ? "true" : "false"}
+            role="tab"
+            aria-selected={cat.value === "all"}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- Gallery grid -->
+  <section class="pb-20 md:pb-32">
+    <Container>
+      <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {portfolio.map((item) => (
+          <PortfolioCard
+            title={item.title}
+            couple={item.couple}
+            venue={item.venue}
+            category={item.category}
+            coverImage={item.coverImage}
+            slug={item.id}
+            class="gallery-item"
+          />
+        ))}
+      </div>
+    </Container>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-20 md:py-32 bg-primary text-on-primary dark:bg-[#ededed] dark:text-[#171717]">
+    <Container>
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="font-semibold text-3xl md:text-[32px] leading-10 tracking-[-0.026em]">
+          Ready to be featured here?
+        </h2>
+        <p class="mt-4 text-lg opacity-70">
+          Let's create beautiful memories together. Book your date now.
+        </p>
+        <div class="mt-8">
+          <Button variant="secondary" size="lg" href="/contact">
+            Book your date
+          </Button>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <Footer slot="footer" />
+
+  <!-- Filter script -->
+  <script is:inline>
+    const buttons = document.querySelectorAll(".filter-btn");
+    const items = document.querySelectorAll(".gallery-item");
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const category = btn.dataset.category;
+
+        // Update active button
+        buttons.forEach((b) => {
+          b.dataset.active = "false";
+          b.setAttribute("aria-selected", "false");
+        });
+        btn.dataset.active = "true";
+        btn.setAttribute("aria-selected", "true");
+
+        // Filter items
+        items.forEach((item) => {
+          if (category === "all" || item.dataset.category === category) {
+            item.style.display = "block";
+          } else {
+            item.style.display = "none";
+          }
+        });
+      });
+    });
+  </script>
+</BaseLayout>

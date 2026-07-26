@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://akreation.in/sitemap-index.xml

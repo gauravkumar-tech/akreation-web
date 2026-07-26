@@ -1,0 +1,113 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Container from "../components/ui/Container.astro";
+import SectionHeader from "../components/ui/SectionHeader.astro";
+import Button from "../components/ui/Button.astro";
+---
+
+<BaseLayout
+  title="About"
+  description="Meet the photographer behind A K Studio. Since 1985, capturing love stories across Delhi NCR with candid, documentary, and fine art styles."
+>
+  <Header slot="header" />
+
+  <!-- Hero -->
+  <section class="py-20 md:py-32">
+    <Container>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div>
+          <p class="font-mono text-xs uppercase tracking-widest text-mute dark:text-[#666666] mb-4">
+            About A K Studio
+          </p>
+          <h1 class="font-semibold text-4xl md:text-[48px] leading-[1.1] tracking-[-0.04em] text-ink dark:text-[#ededed]">
+            The story behind the lens.
+          </h1>
+          <p class="mt-6 text-lg leading-7 text-body dark:text-[#a1a1a1]">
+            A K Studio was born from a simple belief: every love story deserves to be told with honesty and artistry. What started as a passion project has grown into one of Delhi NCR's most trusted wedding photography studios.
+          </p>
+          <p class="mt-4 text-base text-body dark:text-[#a1a1a1]">
+            Since 1985, we've had the privilege of documenting over 500 weddings — from intimate family ceremonies in South Delhi to grand celebrations at the city's finest venues.
+          </p>
+        </div>
+        <div class="aspect-[4/5] rounded-xl overflow-hidden shadow-card-lg">
+          <img
+            src="https://placehold.co/600x750/171717/fafafa?text=Photographer+Portrait&font=inter"
+            alt="A K Studio photographer portrait"
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Approach -->
+  <section class="py-20 md:py-32 bg-canvas-soft dark:bg-[#0a0a0a]">
+    <Container>
+      <SectionHeader
+        eyebrow="Our approach"
+        title="Three styles, one philosophy."
+        description="We blend three photographic approaches to give you a complete visual story of your wedding day."
+      />
+      <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-canvas dark:bg-[#111111] rounded-lg border border-hairline dark:border-[#333333] p-6">
+          <h3 class="font-semibold text-lg text-ink dark:text-[#ededed] mb-2">Candid & Documentary</h3>
+          <p class="text-sm text-body dark:text-[#a1a1a1] leading-relaxed">
+            We capture moments as they happen — the stolen glances, the happy tears, the burst of laughter. No posing, no direction, just real life unfolding beautifully.
+          </p>
+        </div>
+        <div class="bg-canvas dark:bg-[#111111] rounded-lg border border-hairline dark:border-[#333333] p-6">
+          <h3 class="font-semibold text-lg text-ink dark:text-[#ededed] mb-2">Traditional & Posed</h3>
+          <p class="text-sm text-body dark:text-[#a1a1a1] leading-relaxed">
+            Family portraits, couple shots, and formal group photos — done with care and efficiency so you can get back to celebrating.
+          </p>
+        </div>
+        <div class="bg-canvas dark:bg-[#111111] rounded-lg border border-hairline dark:border-[#333333] p-6">
+          <h3 class="font-semibold text-lg text-ink dark:text-[#ededed] mb-2">Fine Art & Editorial</h3>
+          <p class="text-sm text-body dark:text-[#a1a1a1] leading-relaxed">
+            Magazine-worthy portraits with dramatic lighting, thoughtful composition, and a timeless aesthetic that elevates your wedding album.
+          </p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Behind the scenes -->
+  <section class="py-20 md:py-32">
+    <Container>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div class="order-2 lg:order-1">
+          <p class="font-mono text-xs uppercase tracking-widest text-mute dark:text-[#666666] mb-4">
+            Behind the scenes
+          </p>
+          <h2 class="font-semibold text-3xl md:text-[32px] leading-10 tracking-[-0.026em] text-ink dark:text-[#ededed]">
+            More than just a camera.
+          </h2>
+          <p class="mt-4 text-lg leading-7 text-body dark:text-[#a1a1a1]">
+            On your wedding day, we're not just photographers — we're your timeline planners, your family photo coordinators, and your calm presence when things get hectic.
+          </p>
+          <p class="mt-3 text-base text-body dark:text-[#a1a1a1]">
+            We believe that great wedding photography starts with trust. That's why we invest time in getting to know you, understanding your priorities, and planning every detail before the big day.
+          </p>
+          <div class="mt-8">
+            <Button variant="primary" size="md" href="/contact">
+              Let's talk about your wedding
+            </Button>
+          </div>
+        </div>
+        <div class="order-1 lg:order-2 aspect-[4/3] rounded-xl overflow-hidden shadow-card-lg">
+          <img
+            src="https://placehold.co/800x600/171717/fafafa?text=Behind+the+Scenes&font=inter"
+            alt="Photographer at work behind the scenes"
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>

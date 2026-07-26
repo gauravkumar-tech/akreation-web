@@ -1,0 +1,55 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Container from "../components/ui/Container.astro";
+---
+
+<BaseLayout
+  title="Terms of Service"
+  description="Terms of Service for A K Studio. Please read these terms carefully before booking our services."
+>
+  <Header slot="header" />
+
+  <section class="py-16 md:py-24">
+    <Container>
+      <article class="max-w-3xl mx-auto prose dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight">
+        <p class="font-mono text-xs uppercase tracking-widest text-mute dark:text-[#666666] mb-4">Legal</p>
+        <h1>Terms of Service.</h1>
+        <p class="text-body dark:text-[#a1a1a1]">Last updated: January 2025</p>
+
+        <h2>Booking & Payment</h2>
+        <p>
+          A 25% booking fee is required to secure your date. The remaining balance is due 14 days before the event. All prices are in INR and include applicable taxes.
+        </p>
+
+        <h2>Cancellation Policy</h2>
+        <p>
+          If you need to cancel, please notify us as early as possible. The booking fee is non-refundable but may be transferred to a new date subject to availability.
+        </p>
+
+        <h2>Delivery Timeline</h2>
+        <p>
+          Edited photos are delivered within 4–6 weeks of the wedding. Wedding films are delivered within 8–12 weeks. A sneak peek of 20–30 photos is shared within 48 hours.
+        </p>
+
+        <h2>Client Conduct</h2>
+        <p>
+          We strive to provide the best possible service. However, we reserve the right to terminate coverage if we experience unsafe conditions or unreasonable behavior that affects our ability to deliver.
+        </p>
+
+        <h2>Limitation of Liability</h2>
+        <p>
+          While we take every precaution, in the unlikely event of equipment failure or technical issues, our liability is limited to a full refund of fees paid. We recommend couples consider wedding insurance for additional coverage.
+        </p>
+
+        <h2>Contact</h2>
+        <p>
+          For questions about these terms, please email us at <a href="mailto:hello@akreation.in">hello@akreation.in</a>.
+        </p>
+      </article>
+    </Container>
+  </section>
+
+  <Footer slot="footer" />
+</BaseLayout>
