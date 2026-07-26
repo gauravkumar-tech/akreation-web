@@ -1,27 +1,28 @@
 ---
 import Container from "./ui/Container.astro";
 
+const base = import.meta.env.BASE_URL;
 const currentYear = new Date().getFullYear();
 
 const services = [
-  { href: "/services#wedding-photography", label: "Wedding Photography" },
-  { href: "/services#wedding-videography", label: "Wedding Videography" },
-  { href: "/services#pre-wedding", label: "Pre-Wedding Sessions" },
-  { href: "/services#engagement", label: "Engagement Photos" },
-  { href: "/services#events", label: "Events" },
+  { href: `${base}services#wedding-photography`, label: "Wedding Photography" },
+  { href: `${base}services#wedding-videography`, label: "Wedding Videography" },
+  { href: `${base}services#pre-wedding`, label: "Pre-Wedding Sessions" },
+  { href: `${base}services#engagement`, label: "Engagement Photos" },
+  { href: `${base}services#events`, label: "Events" },
 ];
 
 const company = [
-  { href: "/about", label: "About" },
-  { href: "/blog", label: "Blog" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/contact", label: "Contact" },
-  { href: "/locations", label: "Service Areas" },
+  { href: `${base}about`, label: "About" },
+  { href: `${base}blog`, label: "Blog" },
+  { href: `${base}pricing`, label: "Pricing" },
+  { href: `${base}contact`, label: "Contact" },
+  { href: `${base}locations`, label: "Service Areas" },
 ];
 
 const legal = [
-  { href: "/privacy", label: "Privacy Policy" },
-  { href: "/terms", label: "Terms of Service" },
+  { href: `${base}privacy`, label: "Privacy Policy" },
+  { href: `${base}terms`, label: "Terms of Service" },
 ];
 ---
 
@@ -30,7 +31,7 @@ const legal = [
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
       <!-- Brand column -->
       <div class="sm:col-span-2 lg:col-span-1">
-        <a href="/" class="font-semibold text-lg tracking-tight text-ink dark:text-[#ededed]">
+        <a href={base} class="font-semibold text-lg tracking-tight text-ink dark:text-[#ededed]">
           A K Studio
         </a>
         <p class="mt-3 text-sm text-body dark:text-[#a1a1a1] max-w-xs">

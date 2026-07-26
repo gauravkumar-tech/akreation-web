@@ -6,6 +6,8 @@ import Container from "../../components/ui/Container.astro";
 import Button from "../../components/ui/Button.astro";
 import locations from "../../data/locations.json";
 
+const base = import.meta.env.BASE_URL;
+
 export async function getStaticPaths() {
   return locations.map((loc) => ({
     params: { slug: loc.slug },
@@ -40,10 +42,10 @@ const otherCities = locations.filter((l) => l.slug !== location.slug);
             We've had the privilege of photographing beautiful weddings at {location.city}'s finest venues. Our team knows the best locations, lighting conditions, and timing to create stunning wedding imagery.
           </p>
           <div class="mt-8 flex flex-col sm:flex-row gap-4">
-            <Button variant="primary" size="md" href="/contact">
+            <Button variant="primary" size="md" href={`${base}contact`}>
               Book in {location.city}
             </Button>
-            <Button variant="secondary" size="md" href="/portfolio">
+            <Button variant="secondary" size="md" href={`${base}portfolio`}>
               See {location.city} weddings
             </Button>
           </div>
@@ -69,7 +71,7 @@ const otherCities = locations.filter((l) => l.slug !== location.slug);
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {otherCities.map((loc) => (
           <a
-            href={`/locations/${loc.slug}`}
+            href={`${base}locations/${loc.slug}`}
             class="block px-5 py-3 bg-canvas dark:bg-[#111111] rounded-lg border border-hairline dark:border-[#333333] text-sm text-body dark:text-[#a1a1a1] hover:text-ink dark:hover:text-[#ededed] hover:border-hairline-strong transition-colors"
           >
             {loc.city}

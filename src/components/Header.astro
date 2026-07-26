@@ -2,14 +2,16 @@
 import Container from "./ui/Container.astro";
 import Button from "./ui/Button.astro";
 
+const base = import.meta.env.BASE_URL;
+
 const navLinks = [
-  { href: "/portfolio", label: "Portfolio" },
-  { href: "/services", label: "Services" },
-  { href: "/pricing", label: "Pricing" },
-  { href: "/blog", label: "Blog" },
-  { href: "/about", label: "About" },
-  { href: "/locations", label: "Locations" },
-  { href: "/contact", label: "Contact" },
+  { href: `${base}portfolio`, label: "Portfolio" },
+  { href: `${base}services`, label: "Services" },
+  { href: `${base}pricing`, label: "Pricing" },
+  { href: `${base}blog`, label: "Blog" },
+  { href: `${base}about`, label: "About" },
+  { href: `${base}locations`, label: "Locations" },
+  { href: `${base}contact`, label: "Contact" },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -21,7 +23,7 @@ const currentPath = Astro.url.pathname;
   <Container class="flex items-center justify-between h-full">
     <!-- Logo -->
     <a
-      href="/"
+      href={base}
       class="font-semibold text-lg tracking-tight text-ink dark:text-[#ededed] shrink-0"
     >
       A K Studio
@@ -45,7 +47,7 @@ const currentPath = Astro.url.pathname;
 
     <!-- Right cluster -->
     <div class="flex items-center gap-2">
-      <Button variant="primary" size="sm" href="/contact" class="hidden sm:inline-flex">
+      <Button variant="primary" size="sm" href={`${base}contact`} class="hidden sm:inline-flex">
         Get in touch
       </Button>
 
@@ -87,7 +89,7 @@ const currentPath = Astro.url.pathname;
               </a>
             ))}
             <div class="mt-4 pt-4 border-t border-[#ebebeb] dark:border-[#333333]">
-              <a href="/contact" class="w-full h-11 inline-flex items-center justify-center rounded-[100px] bg-[#171717] text-white font-medium text-sm hover:bg-[#171717]/80 dark:bg-[#ededed] dark:text-[#171717] dark:hover:bg-[#d4d4d4] transition-colors"
+              <a href={`${base}contact`} class="w-full h-11 inline-flex items-center justify-center rounded-[100px] bg-[#171717] text-white font-medium text-sm hover:bg-[#171717]/80 dark:bg-[#ededed] dark:text-[#171717] dark:hover:bg-[#d4d4d4] transition-colors"s"
                 onclick="this.closest('details').removeAttribute('open')">
                 Get in touch
               </a>

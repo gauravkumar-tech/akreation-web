@@ -5,6 +5,7 @@ import Footer from "../../components/Footer.astro";
 import Container from "../../components/ui/Container.astro";
 import { getCollection } from "astro:content";
 
+const base = import.meta.env.BASE_URL;
 const posts = await getCollection("blog", ({ data }) => !data.draft);
 posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
@@ -33,7 +34,7 @@ const rest = posts.slice(1);
       <!-- Featured post -->
       {featured && (
         <article class="mb-16">
-          <a href={`/blog/${featured.id}`} class="group grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center bg-canvas dark:bg-[#111111] rounded-xl border border-hairline dark:border-[#333333] p-6 lg:p-8 shadow-card hover:shadow-card-lg transition-shadow">
+          <a href={`${base}blog/${featured.id}`} class="group grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center bg-canvas dark:bg-[#111111] rounded-xl border border-hairline dark:border-[#333333] p-6 lg:p-8 shadow-card hover:shadow-card-lg transition-shadow">
             <div class="aspect-[16/10] bg-canvas-soft-2 dark:bg-[#1a1a1a] rounded-lg overflow-hidden">
               <div class="w-full h-full bg-gradient-to-br from-canvas-soft-2 to-hairline dark:from-[#1a1a1a] dark:to-[#333333] flex items-center justify-center text-mute dark:text-[#666666]">
                 <svg class="w-12 h-12 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
@@ -65,7 +66,7 @@ const rest = posts.slice(1);
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         {rest.map((post) => (
           <article>
-            <a href={`/blog/${post.id}`} class="group block bg-canvas dark:bg-[#111111] rounded-lg border border-hairline dark:border-[#333333] overflow-hidden shadow-card hover:shadow-card-lg transition-shadow">
+            <a href={`${base}blog/${post.id}`} class="group block bg-canvas dark:bg-[#111111] rounded-lg border border-hairline dark:border-[#333333] overflow-hidden shadow-card hover:shadow-card-lg transition-shadow">
               <div class="aspect-[16/10] bg-canvas-soft-2 dark:bg-[#1a1a1a] overflow-hidden">
                 <div class="w-full h-full bg-gradient-to-br from-canvas-soft-2 to-hairline dark:from-[#1a1a1a] dark:to-[#333333] flex items-center justify-center text-mute dark:text-[#666666]">
                   <svg class="w-10 h-10 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">

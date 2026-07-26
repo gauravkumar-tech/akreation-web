@@ -5,6 +5,7 @@ import Button from "../../components/ui/Button.astro";
 import PortfolioCard from "../../components/PortfolioCard.astro";
 import portfolioData from "../../data/portfolio.json";
 
+const base = import.meta.env.BASE_URL;
 const featured = portfolioData.filter((p) => p.featured).slice(0, 3);
 ---
 
@@ -30,7 +31,7 @@ const featured = portfolioData.filter((p) => p.featured).slice(0, 3);
     </div>
 
     <div class="mt-10 text-center">
-      <Button variant="secondary" size="md" href="/portfolio">
+      <Button variant="secondary" size="md" href={`${base}portfolio`}>
         View full portfolio
         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
           <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />

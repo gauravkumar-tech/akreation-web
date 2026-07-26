@@ -5,6 +5,8 @@ import Footer from "../../components/Footer.astro";
 import Container from "../../components/ui/Container.astro";
 import { getCollection, render } from "astro:content";
 
+const base = import.meta.env.BASE_URL;
+
 export async function getStaticPaths() {
   const posts = await getCollection("blog");
   return posts.map((post) => ({
@@ -76,7 +78,7 @@ const related = allPosts
           <h2 class="font-semibold text-lg text-ink dark:text-[#ededed] mb-6">Related posts</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {related.map((p) => (
-              <a href={`/blog/${p.id}`} class="group block">
+              <a href={`${base}blog/${p.id}`} class="group block">
                 <p class="text-sm font-medium text-ink dark:text-[#ededed] group-hover:text-body dark:group-hover:text-[#a1a1a1] transition-colors">
                   {p.data.title}
                 </p>

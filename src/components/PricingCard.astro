@@ -14,6 +14,7 @@ interface Props {
   class?: string;
 }
 
+const base = import.meta.env.BASE_URL;
 const {
   name,
   tagline,
@@ -25,7 +26,7 @@ const {
   featured = false,
   features,
   cta = "Book now",
-  ctaHref = "/contact",
+  ctaHref = `${base}contact`,
   class: className = "",
 } = Astro.props;
 

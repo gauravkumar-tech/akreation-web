@@ -7,7 +7,7 @@ import sitemap from "@astrojs/sitemap";
 export default defineConfig({
   // site: "https://akreation.in",
   site: "https://gauravkumar-tech.github.io/",
-  base: "akreation-web", //only required for github pages
+  base: "akreation-web/", //only required for github pages -- for normal website just give /
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],

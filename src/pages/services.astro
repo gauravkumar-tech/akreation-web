@@ -5,6 +5,8 @@ import Footer from "../components/Footer.astro";
 import Container from "../components/ui/Container.astro";
 import SectionHeader from "../components/ui/SectionHeader.astro";
 import Button from "../components/ui/Button.astro";
+
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
@@ -179,7 +181,7 @@ import Button from "../components/ui/Button.astro";
           Let's discuss your celebration and find the perfect package for your needs.
         </p>
         <div class="mt-8">
-          <Button variant="secondary" size="lg" href="/contact">
+          <Button variant="secondary" size="lg" href={`${base}contact`}>
             Get in touch
           </Button>
         </div>

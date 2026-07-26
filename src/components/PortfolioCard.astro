@@ -9,6 +9,7 @@ interface Props {
   class?: string;
 }
 
+const base = import.meta.env.BASE_URL;
 const {
   title,
   couple,
@@ -21,7 +22,7 @@ const {
 ---
 
 <a
-  href={`/portfolio/${slug}`}
+  href={`${base}portfolio/${slug}`}
   class={`group relative block overflow-hidden rounded-lg ${className}`}
   data-category={category}
 >

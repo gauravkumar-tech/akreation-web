@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://akreation.in/sitemap-index.xml
+Sitemap: https://gauravkumar-tech.github.io/akreation-web/sitemap-index.xml

@@ -6,6 +6,8 @@ import Container from "../components/ui/Container.astro";
 import SectionHeader from "../components/ui/SectionHeader.astro";
 import Button from "../components/ui/Button.astro";
 import locations from "../data/locations.json";
+
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
@@ -26,7 +28,7 @@ import locations from "../data/locations.json";
       <div class="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {locations.map((loc) => (
           <a
-            href={`/locations/${loc.slug}`}
+            href={`${base}locations/${loc.slug}`}
             class="group block bg-canvas dark:bg-[#111111] rounded-lg border border-hairline dark:border-[#333333] p-6 shadow-card hover:shadow-card-lg transition-shadow"
           >
             <div class="flex items-center gap-3 mb-3">
@@ -85,7 +87,7 @@ import locations from "../data/locations.json";
         </div>
 
         <div class="mt-10 text-center">
-          <Button variant="primary" size="md" href="/contact">
+          <Button variant="primary" size="md" href={`${base}contact`}>
             Inquire about your location
           </Button>
         </div>

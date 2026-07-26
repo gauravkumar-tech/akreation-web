@@ -1,6 +1,8 @@
 ---
 import Container from "../../components/ui/Container.astro";
 import Button from "../../components/ui/Button.astro";
+
+const base = import.meta.env.BASE_URL;
 ---
 
 <section class="relative py-24 md:py-32 lg:py-48 overflow-hidden">
@@ -20,8 +22,8 @@ import Button from "../../components/ui/Button.astro";
           A K Studio blends candid documentary and fine art editorial styles to preserve your most meaningful moments.
         </p>
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
-          <Button variant="primary" size="lg" href="/portfolio">View our work</Button>
-          <Button variant="secondary" size="lg" href="/contact">Book a consultation</Button>
+          <Button variant="primary" size="lg" href={`${base}portfolio`}>View our work</Button>
+          <Button variant="secondary" size="lg" href={`${base}contact`}>Book a consultation</Button>
         </div>
       </div>
     </Container>

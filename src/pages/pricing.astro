@@ -6,6 +6,8 @@ import Container from "../components/ui/Container.astro";
 import Button from "../components/ui/Button.astro";
 import PricingCard from "../components/PricingCard.astro";
 import pricing from "../data/pricing.json";
+
+const base = import.meta.env.BASE_URL;
 ---
 
 <BaseLayout
@@ -75,7 +77,7 @@ import pricing from "../data/pricing.json";
         </div>
 
         <div class="mt-10 text-center">
-          <Button variant="primary" size="md" href="/contact">
+          <Button variant="primary" size="md" href={`${base}contact`}>
             Have questions? Let's talk
           </Button>
         </div>
