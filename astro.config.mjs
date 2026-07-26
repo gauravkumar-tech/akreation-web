@@ -5,7 +5,9 @@ import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://akreation.in",
+  // site: "https://akreation.in",
+  site: "https://gauravkumar-tech.github.io/",
+  base: "akreation-web", //only required for github pages
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
