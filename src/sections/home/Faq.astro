@@ -4,14 +4,14 @@ import SectionHeader from "../../components/ui/SectionHeader.astro";
 import FaqAccordion from "../../components/FaqAccordion.astro";
 ---
 
-<section class="py-20 md:py-32 bg-canvas-soft dark:bg-[#0a0a0a]">
+<section class="py-24 md:py-32 bg-canvas dark:bg-[#1c1917]">
   <Container>
     <SectionHeader
       eyebrow="FAQ"
       title="Frequently asked questions"
     />
 
-    <div class="mt-12 max-w-2xl mx-auto divide-y divide-hairline dark:divide-[#333333]">
+    <div class="mt-12 max-w-3xl mx-auto bg-canvas-soft dark:bg-[#141210] border border-hairline dark:border-[#2e2a26] rounded-lg px-7 md:px-10 py-2 shadow-card">
       <FaqAccordion question="How far in advance should we book?">
         We recommend booking 6–12 months in advance for wedding photography, especially during peak season (October–March). Pre-wedding and engagement sessions can be booked 2–3 months ahead.
       </FaqAccordion>
@@ -32,9 +32,11 @@ import FaqAccordion from "../../components/FaqAccordion.astro";
         Yes! We offer both photography and videography. Our Premium package includes a wedding highlight film, and our Luxe package includes a full cinematic wedding film with drone footage.
       </FaqAccordion>
 
-      <FaqAccordion question="What if it rains on our wedding day?">
-        Rain can create incredibly romantic and dramatic photos! We always come prepared with weather-appropriate gear and creative backup plans. Some of our most stunning shots have been taken in the rain.
-      </FaqAccordion>
+      <div class="[&>details]:border-b-0 [&>details]:border-t [&>details]:border-hairline dark:[&>details]:border-[#2e2a26] [&>details:first-child]:border-t-0">
+        <FaqAccordion question="What if it rains on our wedding day?">
+          Rain can create incredibly romantic and dramatic photos! We always come prepared with weather-appropriate gear and creative backup plans. Some of our most stunning shots have been taken in the rain.
+        </FaqAccordion>
+      </div>
     </div>
   </Container>
 </section>

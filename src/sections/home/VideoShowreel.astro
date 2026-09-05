@@ -4,7 +4,7 @@ import SectionHeader from "../../components/ui/SectionHeader.astro";
 import VideoEmbed from "../../components/VideoEmbed.astro";
 ---
 
-<section class="py-20 md:py-32 bg-canvas-soft dark:bg-[#0a0a0a]">
+<section class="py-24 md:py-32 bg-canvas dark:bg-[#1c1917]">
   <Container>
     <SectionHeader
       eyebrow="Watch our films"
@@ -12,12 +12,17 @@ import VideoEmbed from "../../components/VideoEmbed.astro";
       description="Every wedding has a soundtrack. Our cinematic films bring together the best visuals and music to tell your complete story."
     />
 
-    <div class="mt-12 max-w-4xl mx-auto">
+    <div class="mt-14 max-w-4xl mx-auto">
+      <div class="frame-offset rounded-xl overflow-hidden shadow-card-xl ring-1 ring-brass/25">
       <VideoEmbed
-        videoId="dQw4w9WgXcQ"
+        videoId="4JldVSygmM0"
         platform="youtube"
         title="A K Studio — Wedding Film Showreel"
       />
+      </div>
+      <p class="mt-6 text-center font-display italic text-lg text-body dark:text-[#b8b0a3]">
+        Showreel — a glimpse into our cinematic world
+      </p>
     </div>
   </Container>
 </section>

@@ -23,23 +23,25 @@ const {
 
 <a
   href={`${base}portfolio/${slug}`}
-  class={`group relative block overflow-hidden rounded-lg ${className}`}
+  class={`group relative block ${className}`}
   data-category={category}
 >
-  <div class="aspect-[4/3] bg-canvas-soft-2 dark:bg-[#1a1a1a] overflow-hidden">
+  <div class="aspect-[4/5] bg-canvas-soft-2 dark:bg-[#292524] overflow-hidden rounded-lg shadow-card group-hover:shadow-card-lg transition-all duration-500">
     <img
       src={coverImage}
       alt={`${couple} — ${venue}`}
-      class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+      class="img-luxe w-full h-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.06]"
       loading="lazy"
     />
   </div>
 
-  <!-- Overlay -->
-  <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-5">
-    <div>
-      <p class="text-white font-medium text-base">{couple}</p>
-      <p class="text-white/70 text-sm">{venue}</p>
-    </div>
+  <!-- Caption — editorial, always visible -->
+  <div class="pt-5 pb-1 text-center">
+    <p class="text-[11px] uppercase tracking-[0.28em] text-brass-deep dark:text-brass">{category}</p>
+    <p class="font-display text-[22px] leading-snug mt-1.5 text-ink dark:text-[#ece7dd]">{couple}</p>
+    <p class="text-[13px] font-light tracking-wide text-body dark:text-[#b8b0a3] mt-1">{venue}</p>
   </div>
+
+  <!-- Hover veil -->
+  <div class="pointer-events-none absolute inset-0 rounded-lg ring-1 ring-inset ring-brass/0 group-hover:ring-brass/40 transition-all duration-500" />
 </a>

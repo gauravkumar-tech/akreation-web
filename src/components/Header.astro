@@ -17,79 +17,90 @@ const navLinks = [
 const currentPath = Astro.url.pathname;
 ---
 
+<!-- Thin gold hairline above header -->
+<div class="h-[2px] bg-gradient-to-r from-transparent via-brass to-transparent"></div>
+
 <header
-  class="sticky top-0 z-50 h-16 bg-canvas/80 backdrop-blur-lg border-b border-hairline dark:bg-[#0a0a0a]/80 dark:border-[#333333]"
+  class="sticky top-0 z-50 bg-canvas/85 backdrop-blur-xl border-b border-hairline dark:bg-[#141210]/85 dark:border-[#2e2a26]"
 >
-  <Container class="flex items-center justify-between h-full">
+  <Container class="flex items-center justify-between h-20">
     <!-- Logo -->
     <a
       href={base}
-      class="font-semibold text-lg tracking-tight text-ink dark:text-[#ededed] shrink-0"
+      class="shrink-0 leading-none"
     >
-      A K Studio
+      <span class="font-display font-medium text-[26px] tracking-[0.02em] text-ink dark:text-[#ece7dd]">
+        A&nbsp;K <span class="italic font-normal text-brass-deep dark:text-brass">Studio</span>
+      </span>
+      <span class="block text-[9px] uppercase tracking-[0.42em] text-mute mt-1">
+        Est. 1985 · Delhi NCR
+      </span>
     </a>
 
     <!-- Desktop Nav -->
-    <nav class="hidden md:flex items-center gap-1" aria-label="Main navigation">
+    <nav class="hidden lg:flex items-center gap-1" aria-label="Main navigation">
       {navLinks.slice(0, -1).map((link) => (
         <a
           href={link.href}
-          class={`px-3 py-1.5 text-sm rounded-full transition-colors ${
+          class={`px-4 py-2 text-[12px] uppercase tracking-[0.18em] transition-colors relative ${
             currentPath.startsWith(link.href)
-              ? "text-ink dark:text-[#ededed] bg-canvas-soft-2 dark:bg-[#1a1a1a]"
-              : "text-body dark:text-[#a1a1a1] hover:text-ink dark:hover:text-[#ededed] hover:bg-canvas-soft-2 dark:hover:bg-[#1a1a1a]"
+              ? "text-brass-deep dark:text-brass"
+              : "text-body dark:text-[#b8b0a3] hover:text-ink dark:hover:text-[#ece7dd]"
           }`}
         >
           {link.label}
+          {currentPath.startsWith(link.href) && (
+            <span class="absolute left-1/2 -translate-x-1/2 -bottom-0.5 w-5 h-px bg-brass" />
+          )}
         </a>
       ))}
     </nav>
 
     <!-- Right cluster -->
-    <div class="flex items-center gap-2">
+    <div class="flex items-center gap-3">
       <Button variant="primary" size="sm" href={`${base}contact`} class="hidden sm:inline-flex">
         Get in touch
       </Button>
 
       <!-- Dark mode toggle -->
       <button
-        class="w-8 h-8 flex items-center justify-center rounded-full border border-hairline hover:bg-canvas-soft-2 dark:border-[#333333] dark:hover:bg-[#1a1a1a] transition-colors"
+        class="w-9 h-9 flex items-center justify-center rounded-full border border-hairline-strong/40 hover:border-brass hover:text-brass-deep dark:border-[#2e2a26] dark:hover:border-brass transition-colors"
         aria-label="Toggle dark mode"
         onclick="const isDark=document.documentElement.classList.toggle('dark');localStorage.setItem('theme',isDark?'dark':'light')"
       >
-        <svg class="w-4 h-4 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <svg class="w-4 h-4 block dark:hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
         </svg>
-        <svg class="w-4 h-4 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <svg class="w-4 h-4 hidden dark:block" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
         </svg>
       </button>
 
       <!-- Mobile hamburger (details/summary approach) -->
-      <details class="md:hidden group relative">
+      <details class="lg:hidden group relative">
         <summary
-          class="w-8 h-8 flex items-center justify-center rounded-full border border-hairline dark:border-[#333333] cursor-pointer list-none"
+          class="w-9 h-9 flex items-center justify-center rounded-full border border-hairline-strong/40 dark:border-[#2e2a26] cursor-pointer list-none"
           aria-label="Open menu"
         >
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </summary>
 
         <!-- Mobile Menu Dropdown -->
-        <div class="fixed left-0 right-0 top-16 z-50 bg-white dark:bg-[#0a0a0a] border-t border-[#ebebeb] dark:border-[#333333] shadow-xl">
+        <div class="fixed left-0 right-0 top-[82px] z-50 bg-canvas dark:bg-[#141210] border-t border-hairline dark:border-[#2e2a26] shadow-modal">
           <nav class="flex flex-col p-6 gap-1" aria-label="Mobile navigation">
             {navLinks.map((link) => (
               <a
                 href={link.href}
-                class="block px-4 py-3.5 text-base font-medium rounded-lg transition-colors text-[#4d4d4d] dark:text-[#a1a1a1] hover:text-[#171717] dark:hover:text-[#ededed] hover:bg-[#f5f5f5] dark:hover:bg-[#1a1a1a]"
+                class="block px-4 py-3.5 font-display text-xl transition-colors text-body dark:text-[#b8b0a3] hover:text-brass-deep dark:hover:text-brass hover:bg-brass-soft/50 dark:hover:bg-white/5 rounded-lg"
                 onclick="this.closest('details').removeAttribute('open')"
               >
                 {link.label}
               </a>
             ))}
-            <div class="mt-4 pt-4 border-t border-[#ebebeb] dark:border-[#333333]">
-              <a href={`${base}contact`} class="w-full h-11 inline-flex items-center justify-center rounded-[100px] bg-[#171717] text-white font-medium text-sm hover:bg-[#171717]/80 dark:bg-[#ededed] dark:text-[#171717] dark:hover:bg-[#d4d4d4] transition-colors"s"
+            <div class="mt-4 pt-4 border-t border-hairline dark:border-[#2e2a26]">
+              <a href={`${base}contact`} class="w-full h-12 inline-flex items-center justify-center rounded-full bg-espresso text-[#fdfbf7] font-medium text-[13px] uppercase tracking-[0.16em] hover:bg-brass dark:bg-[#ece7dd] dark:text-[#1c1917] dark:hover:bg-brass dark:hover:text-white transition-colors"
                 onclick="this.closest('details').removeAttribute('open')">
                 Get in touch
               </a>
@@ -108,7 +119,7 @@ const currentPath = Astro.url.pathname;
       document.querySelectorAll("details").forEach(function(d) { d.removeAttribute("open"); });
     }
   });
-  window.matchMedia("(min-width: 768px)").addEventListener("change", function(e) {
+  window.matchMedia("(min-width: 1024px)").addEventListener("change", function(e) {
     if (e.matches) document.querySelectorAll("details").forEach(function(d) { d.removeAttribute("open"); });
   });
 </script>

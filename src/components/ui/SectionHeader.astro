@@ -20,17 +20,18 @@ const alignment = align === "center" ? "text-center mx-auto" : "text-left";
 
 <div class={`max-w-3xl ${alignment} ${className}`}>
   {eyebrow && (
-    <p class="font-mono text-xs uppercase tracking-widest text-mute dark:text-[#666666] mb-4">
+    <p class="eyebrow eyebrow-line eyebrow-line--both justify-center mb-5">
       {eyebrow}
     </p>
   )}
   <h2
-    class="font-semibold text-3xl md:text-[32px] leading-10 tracking-[-0.026em] text-ink dark:text-[#ededed]"
+    class="font-display font-medium text-4xl md:text-5xl leading-[1.08] tracking-[-0.01em] text-ink dark:text-[#ece7dd]"
     set:html={title.endsWith(".") ? title : `${title}.`}
   />
   {description && (
-    <p class="mt-4 text-lg leading-7 text-body dark:text-[#a1a1a1]">
+    <p class="mt-5 text-[17px] leading-[1.75] text-body dark:text-[#b8b0a3] font-light max-w-2xl mx-auto">
       {description}
     </p>
   )}
+  <div class="gold-divider w-24 mx-auto mt-7" />
 </div>

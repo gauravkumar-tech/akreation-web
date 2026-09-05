@@ -18,21 +18,21 @@ const {
 } = Astro.props;
 
 const base =
-  "inline-flex items-center justify-center font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-link focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none";
+  "inline-flex items-center justify-center font-medium tracking-wide transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none";
 
 const variants: Record<string, string> = {
   primary:
-    "bg-primary text-on-primary hover:bg-ink/80 dark:bg-[#ededed] dark:text-[#171717] dark:hover:bg-[#d4d4d4]",
+    "bg-espresso text-[#fdfbf7] hover:bg-brass hover:shadow-gold hover:-translate-y-px dark:bg-[#ece7dd] dark:text-[#1c1917] dark:hover:bg-brass dark:hover:text-white shadow-card",
   secondary:
-    "bg-canvas text-ink border border-hairline hover:bg-canvas-soft-2 dark:bg-[#111111] dark:text-[#ededed] dark:border-[#333333] dark:hover:bg-[#1a1a1a]",
+    "bg-canvas/90 backdrop-blur text-ink border border-hairline-strong/40 hover:border-brass hover:text-brass-deep dark:bg-white/5 dark:text-[#ece7dd] dark:border-white/15 dark:hover:border-brass dark:hover:text-brass shadow-card",
   ghost:
-    "bg-transparent text-body hover:bg-canvas-soft-2 dark:text-[#a1a1a1] dark:hover:bg-[#1a1a1a]",
+    "bg-transparent text-body hover:text-brass-deep hover:bg-brass-soft/60 dark:text-[#b8b0a3] dark:hover:bg-white/5 dark:hover:text-brass",
 };
 
 const sizes: Record<string, string> = {
-  sm: "h-7 px-3 text-sm rounded-md gap-1.5",
-  md: "h-10 px-5 text-base rounded-[100px] gap-2",
-  lg: "h-12 px-6 text-base rounded-[100px] gap-2",
+  sm: "h-9 px-4 text-[13px] uppercase tracking-[0.14em] rounded-full gap-1.5",
+  md: "h-11 px-6 text-sm uppercase tracking-[0.14em] rounded-full gap-2",
+  lg: "h-[52px] px-8 text-sm uppercase tracking-[0.16em] rounded-full gap-2.5",
 };
 
 const classes = `${base} ${variants[variant]} ${sizes[size]} ${className}`;

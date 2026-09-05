@@ -1,0 +1,183 @@
+---
+interface Slide {
+  src: string;
+  alt: string;
+}
+
+interface Props {
+  slides: Slide[];
+  interval?: number;
+  class?: string;
+}
+
+const { slides, interval = 6000, class: className = "" } = Astro.props;
+const sliderId = `hero-slider-${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<div
+  id={sliderId}
+  data-hero-slider
+  data-interval={interval}
+  class={`group/slider relative overflow-hidden rounded-xl shadow-card-xl ring-1 ring-white/15 bg-espresso ${className}`}
+  role="region"
+  aria-roledescription="carousel"
+  aria-label="Featured wedding photography"
+  tabindex="0"
+>
+  <div class="aspect-[4/3] sm:aspect-[16/9] lg:aspect-[21/9] relative" data-slides>
+    {slides.map((slide, i) => (
+      <div
+        data-slide={i}
+        class={`absolute inset-0 transition-opacity duration-[1200ms] ease-out ${i === 0 ? "opacity-100 z-10" : "opacity-0 z-0"}`}
+        role="group"
+        aria-roledescription="slide"
+        aria-label={`${i + 1} of ${slides.length}`}
+        aria-hidden={i !== 0 ? "true" : undefined}
+      >
+        {/* Blurred ambience fill — makes portrait & landscape both look intentional */}
+        <img
+          src={slide.src}
+          alt=""
+          aria-hidden="true"
+          class="absolute inset-0 w-full h-full object-cover scale-110 blur-2xl brightness-[0.55] saturate-[1.1]"
+          loading={i === 0 ? "eager" : "lazy"}
+        />
+        {/* Full-frame photo, never cropped */}
+        <img
+          src={slide.src}
+          alt={slide.alt}
+          class="img-luxe absolute inset-0 w-full h-full object-contain"
+          loading={i === 0 ? "eager" : "lazy"}
+          fetchpriority={i === 0 ? "high" : undefined}
+        />
+        <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-espresso/70 to-transparent pointer-events-none" />
+      </div>
+    ))}
+  </div>
+
+  {slides.length > 1 && (
+    <>
+      {/* Prev / Next */}
+      <button
+        type="button"
+        data-prev
+        aria-label="Previous slide"
+        class="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 flex items-center justify-center rounded-full bg-espresso/50 backdrop-blur border border-white/25 text-white hover:bg-brass hover:border-brass transition-all opacity-0 group-hover/slider:opacity-100 focus:opacity-100 max-lg:opacity-100"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+        </svg>
+      </button>
+      <button
+        type="button"
+        data-next
+        aria-label="Next slide"
+        class="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 flex items-center justify-center rounded-full bg-espresso/50 backdrop-blur border border-white/25 text-white hover:bg-brass hover:border-brass transition-all opacity-0 group-hover/slider:opacity-100 focus:opacity-100 max-lg:opacity-100"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+        </svg>
+      </button>
+
+      {/* Dots + counter */}
+      <div class="absolute bottom-5 inset-x-0 z-20 flex items-center justify-center gap-3">
+        <div class="flex items-center gap-2" role="tablist" aria-label="Choose slide">
+          {slides.map((_, i) => (
+            <button
+              type="button"
+              data-dot={i}
+              role="tab"
+              aria-selected={i === 0 ? "true" : "false"}
+              aria-label={`Go to slide ${i + 1}`}
+              class="h-[3px] rounded-full transition-all duration-500"
+            />
+          ))}
+        </div>
+        <span class="text-[11px] tracking-[0.24em] text-white/80 font-light" data-counter>
+          01 / {String(slides.length).padStart(2, "0")}
+        </span>
+      </div>
+    </>
+  )}
+</div>
+
+<script is:inline define:vars={{ sliderId, interval }}>
+  (() => {
+    const root = document.getElementById(sliderId);
+    if (!root) return;
+    const slideEls = Array.from(root.querySelectorAll("[data-slide]"));
+    const dotEls = Array.from(root.querySelectorAll("[data-dot]"));
+    const counter = root.querySelector("[data-counter]");
+    const prevBtn = root.querySelector("[data-prev]");
+    const nextBtn = root.querySelector("[data-next]");
+    if (slideEls.length <= 1) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let index = 0;
+    let timer = null;
+    const pad = (n) => String(n).padStart(2, "0");
+
+    function paint() {
+      slideEls.forEach((el, i) => {
+        const active = i === index;
+        el.classList.toggle("opacity-100", active);
+        el.classList.toggle("z-10", active);
+        el.classList.toggle("opacity-0", !active);
+        el.classList.toggle("z-0", !active);
+        if (active) el.removeAttribute("aria-hidden");
+        else el.setAttribute("aria-hidden", "true");
+      });
+      dotEls.forEach((dot, i) => {
+        const active = i === index;
+        dot.style.width = active ? "2rem" : "0.75rem";
+        dot.style.background = active ? "#c9a87a" : "rgba(255,255,255,0.4)";
+        dot.setAttribute("aria-selected", active ? "true" : "false");
+      });
+      if (counter) counter.textContent = `${pad(index + 1)} / ${pad(slideEls.length)}`;
+    }
+
+    function go(n) {
+      index = (n + slideEls.length) % slideEls.length;
+      paint();
+      restart();
+    }
+
+    function restart() {
+      if (reduceMotion) return;
+      if (timer) clearInterval(timer);
+      timer = setInterval(() => {
+        index = (index + 1) % slideEls.length;
+        paint();
+      }, interval);
+    }
+
+    prevBtn?.addEventListener("click", () => go(index - 1));
+    nextBtn?.addEventListener("click", () => go(index + 1));
+    dotEls.forEach((dot, i) => dot.addEventListener("click", () => go(i)));
+
+    root.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") go(index - 1);
+      if (e.key === "ArrowRight") go(index + 1);
+    });
+
+    // Pause on hover / focus, resume on leave
+    root.addEventListener("mouseenter", () => timer && clearInterval(timer));
+    root.addEventListener("mouseleave", restart);
+    root.addEventListener("focusin", () => timer && clearInterval(timer));
+    root.addEventListener("focusout", restart);
+
+    // Touch swipe
+    let startX = null;
+    root.addEventListener("touchstart", (e) => { startX = e.touches[0].clientX; }, { passive: true });
+    root.addEventListener("touchend", (e) => {
+      if (startX === null) return;
+      const dx = e.changedTouches[0].clientX - startX;
+      if (Math.abs(dx) > 40) go(index + (dx < 0 ? 1 : -1));
+      else restart();
+      startX = null;
+    }, { passive: true });
+
+    paint();
+    restart();
+  })();
+</script>

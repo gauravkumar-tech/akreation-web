@@ -1,63 +1,81 @@
 ---
 import Container from "../../components/ui/Container.astro";
 import Button from "../../components/ui/Button.astro";
+import HeroSlider from "../../components/HeroSlider.astro";
 
 const base = import.meta.env.BASE_URL;
+const heroImg = `${base}images/IMG-20250420-WA0041.jpg`;
+
+// To add more slides, drop photos into public/images/ and append entries here:
+// { src: `${base}images/your-photo.jpg`, alt: "Couple portrait at ..." }
+const slides = [
+  { src: heroImg, alt: "Wedding couple photographed by A K Studio" },
+];
 ---
 
-<section class="relative py-24 md:py-32 lg:py-48 overflow-hidden">
-  <!-- Background gradient -->
-  <div class="absolute inset-0 bg-gradient-to-br from-canvas-soft via-canvas to-canvas-soft-2 dark:from-[#0a0a0a] dark:via-[#111111] dark:to-[#0a0a0a]"></div>
+<section class="relative overflow-hidden bg-espresso text-[#fdfbf7]">
+  <!-- Cinematic backdrop — real photo ambience -->
+  <div class="absolute inset-0">
+    <img
+      src={heroImg}
+      alt=""
+      aria-hidden="true"
+      class="img-luxe w-full h-full object-cover opacity-40"
+      fetchpriority="high"
+    />
+    <div class="absolute inset-0 bg-gradient-to-b from-espresso/80 via-espresso/55 to-espresso"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-espresso/60 via-transparent to-espresso/60"></div>
+  </div>
 
-  <div class="relative z-10">
+  <div class="relative z-10 pt-24 md:pt-32 lg:pt-40 pb-16 md:pb-20">
     <Container>
-      <div class="max-w-3xl mx-auto text-center">
-        <p class="font-mono text-xs uppercase tracking-widest text-mute dark:text-[#666666] mb-6">
+      <div class="max-w-4xl mx-auto text-center animate-slide-up">
+        <p class="eyebrow eyebrow-line eyebrow-line--both justify-center !text-brass mb-7">
           Delhi NCR Wedding Photography & Videography
         </p>
-        <h1 class="font-semibold text-4xl md:text-[48px] leading-[1.1] tracking-[-0.04em] text-ink dark:text-[#ededed]">
-          Timeless stories, captured as they unfold.
+        <h1 class="font-display font-medium text-[44px] leading-[1.04] md:text-7xl lg:text-[84px] tracking-[-0.01em]">
+          Timeless stories,<br />
+          <span class="italic font-normal text-champagne">captured as they unfold.</span>
         </h1>
-        <p class="mt-6 text-lg md:text-xl leading-relaxed text-body dark:text-[#a1a1a1] max-w-2xl mx-auto">
+        <div class="gold-divider w-32 mx-auto mt-8 opacity-80" />
+        <p class="mt-8 text-[17px] md:text-lg leading-[1.8] font-light text-[#d8d1c2] max-w-2xl mx-auto">
           A K Studio blends candid documentary and fine art editorial styles to preserve your most meaningful moments.
         </p>
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-10">
-          <Button variant="primary" size="lg" href={`${base}portfolio`}>View our work</Button>
-          <Button variant="secondary" size="lg" href={`${base}contact`}>Book a consultation</Button>
+          <Button variant="primary" size="lg" href={`${base}portfolio`} class="!bg-[#fdfbf7] !text-espresso hover:!bg-brass hover:!text-white">View our work</Button>
+          <Button variant="secondary" size="lg" href={`${base}contact`} class="!bg-transparent !text-[#fdfbf7] !border-white/30 hover:!border-brass hover:!text-brass">Book a consultation</Button>
         </div>
       </div>
     </Container>
 
-    <!-- Hero Image -->
-    <div class="mt-16 md:mt-24">
-      <Container>
-        <div class="aspect-[21/9] max-w-5xl mx-auto rounded-xl overflow-hidden shadow-card-xl">
-          <img
-            src="https://placehold.co/1680x720/171717/fafafa?text=Your+Story+Starts+Here&font=inter"
-            alt="Wedding photography hero"
-            class="w-full h-full object-cover"
-            fetchpriority="high"
-          />
+    <!-- Hero slider -->
+    <Container>
+      <div class="mt-14 md:mt-20 max-w-5xl mx-auto">
+        <div class="frame-offset rounded-xl">
+          <HeroSlider slides={slides} interval={6000} />
         </div>
-      </Container>
-    </div>
+      </div>
+    </Container>
 
     <!-- Stats strip -->
     <Container>
-      <div class="mt-16 grid grid-cols-3 gap-8 max-w-lg mx-auto">
-        <div class="text-center">
-          <p class="font-semibold text-2xl md:text-3xl tracking-tight text-ink dark:text-[#ededed]">500+</p>
-          <p class="text-xs text-mute dark:text-[#666666] mt-1">Weddings captured</p>
+      <div class="mt-14 grid grid-cols-3 max-w-2xl mx-auto divide-x divide-white/15">
+        <div class="text-center px-4">
+          <p class="font-display text-3xl md:text-[40px] leading-none">500+</p>
+          <p class="text-[11px] uppercase tracking-[0.24em] text-[#a39c90] mt-2.5">Weddings captured</p>
         </div>
-        <div class="text-center">
-          <p class="font-semibold text-2xl md:text-3xl tracking-tight text-ink dark:text-[#ededed]">Since '85</p>
-          <p class="text-xs text-mute dark:text-[#666666] mt-1">Years in operation</p>
+        <div class="text-center px-4">
+          <p class="font-display text-3xl md:text-[40px] leading-none">Since '85</p>
+          <p class="text-[11px] uppercase tracking-[0.24em] text-[#a39c90] mt-2.5">Years in operation</p>
         </div>
-        <div class="text-center">
-          <p class="font-semibold text-2xl md:text-3xl tracking-tight text-ink dark:text-[#ededed]">4.9</p>
-          <p class="text-xs text-mute dark:text-[#666666] mt-1">Google rating</p>
+        <div class="text-center px-4">
+          <p class="font-display text-3xl md:text-[40px] leading-none">4.9<span class="text-brass text-2xl align-top ml-1">★</span></p>
+          <p class="text-[11px] uppercase tracking-[0.24em] text-[#a39c90] mt-2.5">Google rating</p>
         </div>
       </div>
     </Container>
   </div>
+
+  <!-- Soft transition into ivory -->
+  <div class="relative h-16 bg-gradient-to-b from-transparent to-canvas-soft dark:to-[#141210]"></div>
 </section>
