@@ -1,16 +1,15 @@
 [
   {
-    "id": "priya-rahul-wedding",
-    "title": "Priya & Rahul's Wedding",
-    "couple": "Priya & Rahul",
+    "id": "ankit-shakshi-wedding",
+    "title": "Ankit & Shakshi's Wedding",
+    "couple": "Ankit & Shakshi",
     "venue": "The Leela Palace, Delhi",
     "date": "2025-11-15",
     "category": "wedding",
     "style": "candid",
-    "coverImage": "https://placehold.co/800x600/171717/fafafa?text=Priya+%26+Rahul&font=inter",
+    "coverImage": "ak-weddings/ankit_shakshi_wedding.jpg",
     "images": [
-      "https://placehold.co/800x600/1a1a2e/eef0f5?text=Ceremony&font=inter",
-      "https://placehold.co/800x600/16213e/ccd6f0?text=Reception&font=inter"
+      "ak-weddings/ankit_shakshi_wedding.jpg"
     ],
     "description": "A beautiful winter wedding at The Leela Palace, Delhi. Candid moments, emotional vows, and a grand reception.",
     "featured": true

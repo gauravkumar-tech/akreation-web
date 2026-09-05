@@ -16,6 +16,9 @@ export async function getStaticPaths() {
 }
 
 const { item } = Astro.props;
+
+// Remote URLs stay as-is; local public/ paths get the site base (GitHub Pages subpath)
+const resolveImg = (s: string) => (s.startsWith("http") ? s : `${base}${s}`);
 ---
 
 <BaseLayout
@@ -50,11 +53,11 @@ const { item } = Astro.props;
           {item.description}
         </p>
 
-        <!-- Gallery -->
-        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- Gallery — full images, never cropped -->
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
           {item.images.length > 0 ? item.images.map((img) => (
-            <div class="aspect-[4/3] rounded-lg overflow-hidden">
-              <img src={img} alt={`${item.couple} photo`} class="w-full h-full object-cover" loading="lazy" />
+            <div class="rounded-lg overflow-hidden bg-canvas-soft-2 dark:bg-[#292524]">
+              <img src={resolveImg(img)} alt={`${item.couple} photo`} class="w-full h-auto" loading="lazy" />
             </div>
           )) : (
             <div class="aspect-[4/3] rounded-lg overflow-hidden">

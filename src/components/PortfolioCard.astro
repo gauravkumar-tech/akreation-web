@@ -19,6 +19,9 @@ const {
   slug,
   class: className = "",
 } = Astro.props;
+
+// Remote URLs stay as-is; local public/ paths get the site base (GitHub Pages subpath)
+const resolvedCover = coverImage.startsWith("http") ? coverImage : `${base}${coverImage}`;
 ---
 
 <a
@@ -26,11 +29,12 @@ const {
   class={`group relative block ${className}`}
   data-category={category}
 >
-  <div class="aspect-[4/5] bg-canvas-soft-2 dark:bg-[#292524] overflow-hidden rounded-lg shadow-card group-hover:shadow-card-lg transition-all duration-500">
+  <div class="bg-canvas-soft-2 dark:bg-[#292524] overflow-hidden rounded-lg shadow-card group-hover:shadow-card-lg transition-all duration-500">
+    {/* Full photo at natural aspect — card wraps it tightly, no crop, no filler */}
     <img
-      src={coverImage}
+      src={resolvedCover}
       alt={`${couple} — ${venue}`}
-      class="img-luxe w-full h-full object-cover transition-transform duration-[1.2s] ease-out group-hover:scale-[1.06]"
+      class="img-luxe w-full h-auto transition-transform duration-[1.2s] ease-out group-hover:scale-[1.03]"
       loading="lazy"
     />
   </div>
