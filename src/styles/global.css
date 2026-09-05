@@ -318,6 +318,39 @@
     will-change: transform;
   }
 
+  /* ── Smooth FAQ accordion ── */
+  .faq-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  [data-open="true"] > .faq-panel {
+    grid-template-rows: 1fr;
+  }
+  .faq-body {
+    opacity: 0;
+    transform: translateY(-8px);
+    transition:
+      opacity 0.35s ease,
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  [data-open="true"] .faq-body {
+    opacity: 1;
+    transform: none;
+  }
+  .faq-icon svg {
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  [data-open="true"] .faq-icon {
+    background: linear-gradient(135deg, #f6e27a, #c39a3b);
+    border-color: #e9c877;
+    color: #fff;
+    box-shadow: 0 8px 24px -8px rgb(176 141 87 / 0.45);
+  }
+  [data-open="true"] .faq-icon svg {
+    transform: rotate(135deg);
+  }
+
   /* ── Marquee ribbon ── */
   .marquee-track {
     animation: marquee 32s linear infinite;
