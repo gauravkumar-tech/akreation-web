@@ -9,6 +9,7 @@ export default defineConfig({
   site: "https://gauravkumar-tech.github.io/",
   base: "akreation-web/", //only required for github pages -- for normal website just give /
   integrations: [sitemap()],
+  devToolbar: { enabled: false },
   vite: {
     plugins: [tailwindcss()],
   },

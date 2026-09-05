@@ -28,6 +28,7 @@ const resolvedCover = coverImage.startsWith("http") ? coverImage : `${base}${cov
   href={`${base}portfolio/${slug}`}
   class={`group relative block ${className}`}
   data-category={category}
+  data-tilt
 >
   <div class="bg-canvas-soft-2 dark:bg-[#292524] overflow-hidden rounded-lg shadow-card group-hover:shadow-card-lg transition-all duration-500">
     {/* Full photo at natural aspect — card wraps it tightly, no crop, no filler */}

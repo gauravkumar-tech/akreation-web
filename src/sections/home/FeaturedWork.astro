@@ -15,9 +15,10 @@ const featured = portfolioData.filter((p) => p.featured).slice(0, 3);
       eyebrow="Featured work"
       title="Every wedding has its own rhythm"
       description="From intimate garden ceremonies to grand palace celebrations, we bring the same dedication and artistry to every wedding."
+      index="01"
     />
 
-    <div class="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+    <div class="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10" data-reveal-group>
       {featured.map((item) => (
         <PortfolioCard
           title={item.title}

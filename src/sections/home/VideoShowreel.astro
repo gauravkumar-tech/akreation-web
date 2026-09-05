@@ -2,17 +2,23 @@
 import Container from "../../components/ui/Container.astro";
 import SectionHeader from "../../components/ui/SectionHeader.astro";
 import VideoEmbed from "../../components/VideoEmbed.astro";
+import HeartsCanvas from "../../components/HeartsFloat.astro";
 ---
 
-<section class="py-24 md:py-32 bg-canvas dark:bg-[#1c1917]">
-  <Container>
+<section class="relative overflow-hidden py-24 md:py-32 bg-canvas dark:bg-[#1c1917]">
+  {/* Golden hearts drifting up the sides */}
+  <HeartsCanvas count={26} />
+  <Container class="relative">
+    <div data-hearts-ceiling>
     <SectionHeader
       eyebrow="Watch our films"
       title="Moving moments, preserved forever"
       description="Every wedding has a soundtrack. Our cinematic films bring together the best visuals and music to tell your complete story."
+      index="03"
     />
+    </div>
 
-    <div class="mt-14 max-w-4xl mx-auto">
+    <div class="mt-14 max-w-4xl mx-auto" data-reveal>
       <div class="frame-offset rounded-xl overflow-hidden shadow-card-xl ring-1 ring-brass/25">
       <VideoEmbed
         videoId="4JldVSygmM0"

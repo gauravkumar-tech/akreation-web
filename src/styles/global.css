@@ -21,12 +21,18 @@
   --color-canvas-soft-2: #f3ede1;
 
   /* Champagne & brass — the only accents */
-  --color-brass: #b08d57;
+  --color-brass: #c39a3b;
   --color-brass-deep: #8a6d3f;
   --color-brass-soft: #f5eddc;
   --color-champagne: #e8ddc9;
   --color-espresso: #1c1917;
   --color-espresso-soft: #292524;
+
+  /* Blush rose — the romantic accent */
+  --color-blush: #faede8;
+  --color-rose: #c98f86;
+  --color-rose-deep: #a96a60;
+  --color-rose-soft: #f7e3dc;
 
   /* Keep tech blues for focus/links only */
   --color-link: #8a6d3f;
@@ -69,6 +75,7 @@
   --shadow-card-xl: 0 2px 6px rgb(28 25 23 / 0.06), 0 32px 64px -16px rgb(28 25 23 / 0.28);
   --shadow-modal: 0 1px 2px rgb(28 25 23 / 0.06), 0 24px 48px -12px rgb(28 25 23 / 0.25);
   --shadow-gold: 0 8px 24px -8px rgb(176 141 87 / 0.45);
+  --shadow-rose: 0 8px 28px -8px rgb(169 106 96 / 0.55);
 
   /* Motion */
   --animate-fade-in: fade-in 0.8s ease-out both;
@@ -94,7 +101,7 @@
   }
 
   ::selection {
-    background-color: var(--color-brass);
+    background-color: var(--color-rose-deep);
     color: #fff;
   }
 
@@ -131,6 +138,10 @@
     --color-primary: #ece7dd;
     --color-brass: #c9a87a;
     --color-brass-soft: #2e2a22;
+    --color-rose: #d9a297;
+    --color-rose-deep: #d9a297;
+    --color-rose-soft: #33231f;
+    --color-blush: #241a17;
   }
 }
 
@@ -142,13 +153,24 @@
 
   .eyebrow {
     font-size: 0.72rem;
-    font-weight: 500;
+    font-weight: 600;
     letter-spacing: 0.32em;
     text-transform: uppercase;
-    color: var(--color-brass-deep);
+    /* Molten-gold shimmer */
+    background: linear-gradient(100deg, #8a6d3f 0%, #c39a3b 22%, #f6e27a 40%, #fff7d6 50%, #f6e27a 60%, #c39a3b 78%, #8a6d3f 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gold-shimmer 5s linear infinite;
+    filter: drop-shadow(0 1px 10px rgb(212 175 55 / 0.35));
   }
   .dark .eyebrow {
-    color: var(--color-brass);
+    background: linear-gradient(100deg, #8a6d3f 0%, #e9c877 25%, #fff7d6 50%, #e9c877 75%, #8a6d3f 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: gold-shimmer 5s linear infinite;
   }
 
   .eyebrow-line {
@@ -162,15 +184,52 @@
     display: inline-block;
     width: 2.5rem;
     height: 1px;
-    background: linear-gradient(90deg, transparent, var(--color-brass));
+    background: linear-gradient(90deg, transparent, #e9c877);
+    filter: drop-shadow(0 0 6px rgb(233 200 119 / 0.9));
   }
   .eyebrow-line--both::after {
     background: linear-gradient(90deg, var(--color-brass), transparent);
   }
 
   .gold-divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #d6c39a 20%, #b08d57 50%, #d6c39a 80%, transparent);
+    position: relative;
+    overflow: hidden;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #8a6d3f 18%, #f6e27a 50%, #8a6d3f 82%, transparent);
+    box-shadow: 0 0 14px rgb(212 175 55 / 0.55);
+  }
+  .gold-divider::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 35%;
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.95), transparent);
+    animation: divider-sweep 3.2s ease-in-out infinite;
+  }
+
+  /* Rose-gold gradient display text — champagne gold melting into blush rose */
+  .text-rosegold {
+    background: linear-gradient(100deg, #ecd2ac 0%, #e5a89e 48%, #c98f86 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 2px 18px rgb(227 162 152 / 0.35));
+  }
+  .dark .text-rosegold {
+    background: linear-gradient(100deg, #f0d6b6 0%, #e3aaa1 50%, #d9a297 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+
+  /* Soft blush aura for dark bands */
+  .blush-glow {
+    background: radial-gradient(54rem 30rem at 50% 16%, rgb(201 143 134 / 0.18), transparent 70%);
+  }
+
+  /* Soft blush aura for light sections */
+  .blush-glow-soft {
+    background: radial-gradient(48rem 26rem at 50% 0%, rgb(201 143 134 / 0.12), transparent 70%);
   }
 
   .frame-offset {
@@ -189,6 +248,83 @@
   .img-luxe {
     filter: saturate(0.92) contrast(1.04);
   }
+
+  /* ── Button sheen sweep ── */
+  .btn-shine {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .btn-shine::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -70%;
+    width: 45%;
+    height: 100%;
+    background: linear-gradient(100deg, transparent, rgb(255 255 255 / 0.38), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.65s ease;
+    z-index: 1;
+  }
+  .btn-shine:hover::after {
+    left: 135%;
+  }
+
+  /* ── Cinematic film grain for dark bands ── */
+  .grain {
+    position: relative;
+  }
+  .grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.07;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
+  }
+
+  /* ── Scroll choreography ── */
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+  }
+  [data-reveal-group] > * {
+    opacity: 0;
+    transform: translateY(26px);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  [data-reveal-group].is-visible > * {
+    opacity: 1;
+    transform: none;
+  }
+  [data-reveal-group].is-visible > *:nth-child(1) { transition-delay: 0s; }
+  [data-reveal-group].is-visible > *:nth-child(2) { transition-delay: 0.08s; }
+  [data-reveal-group].is-visible > *:nth-child(3) { transition-delay: 0.16s; }
+  [data-reveal-group].is-visible > *:nth-child(4) { transition-delay: 0.24s; }
+  [data-reveal-group].is-visible > *:nth-child(5) { transition-delay: 0.32s; }
+  [data-reveal-group].is-visible > *:nth-child(6) { transition-delay: 0.4s; }
+
+  /* ── 3D tilt cards (JS-driven, fine pointers only) ── */
+  [data-tilt] {
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+
+  /* ── Marquee ribbon ── */
+  .marquee-track {
+    animation: marquee 32s linear infinite;
+  }
+  .marquee-track:hover {
+    animation-play-state: paused;
+  }
 }
 
 /* ─── Keyframes ─── */
@@ -205,6 +341,32 @@
 @keyframes zoom-slow {
   from { transform: scale(1); }
   to { transform: scale(1.08); }
+}
+
+@keyframes gold-shimmer {
+  to { background-position: 200% center; }
+}
+
+@keyframes divider-sweep {
+  0% { left: -35%; }
+  60%, 100% { left: 100%; }
+}
+
+@keyframes marquee {
+  to { transform: translateX(-50%); }
+}
+
+@keyframes scroll-drop {
+  0% { transform: scaleY(0); transform-origin: top; }
+  45% { transform: scaleY(1); transform-origin: top; }
+  55% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+@layer components {
+  .scroll-line {
+    animation: scroll-drop 2.4s ease-in-out infinite;
+  }
 }
 
 /* ─── Reduced motion ─── */

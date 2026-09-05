@@ -1,0 +1,20 @@
+---
+// Editorial ribbon — reuses existing service names as pure decoration
+const items = [
+  "Wedding Photography",
+  "Wedding Videography",
+  "Pre-Wedding & Engagement",
+  "Events & Celebrations",
+];
+---
+
+<div class="relative bg-espresso dark:bg-[#0e0c0a] border-y border-brass/25 overflow-hidden py-5" aria-hidden="true">
+  <div class="marquee-track flex w-max items-center gap-10 pr-10">
+    {[...items, ...items].map((word) => (
+      <span class="flex items-center gap-10">
+        <span class="font-display italic text-xl md:text-2xl text-[#e8ddc9]/90 whitespace-nowrap">{word}</span>
+        <span class="w-1.5 h-1.5 rotate-45 bg-gradient-to-br from-[#fff7d6] to-brass shadow-[0_0_12px_rgb(233_200_119/0.9)] shrink-0" />
+      </span>
+    ))}
+  </div>
+</div>

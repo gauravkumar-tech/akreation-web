@@ -10,7 +10,7 @@ const { question, class: className = "" } = Astro.props;
 <details class={`group border-b border-hairline dark:border-[#2e2a26] ${className}`}>
   <summary class="flex items-center justify-between gap-6 py-6 cursor-pointer list-none text-ink dark:text-[#ece7dd] font-display text-[20px] hover:text-brass-deep dark:hover:text-brass transition-colors [&::-webkit-details-marker]:hidden">
     {question}
-    <span class="w-9 h-9 shrink-0 flex items-center justify-center rounded-full border border-hairline-strong/40 group-open:bg-brass group-open:border-brass group-open:text-white text-brass-deep transition-all duration-300">
+    <span class="w-9 h-9 shrink-0 flex items-center justify-center rounded-full border border-hairline-strong/40 group-open:bg-gradient-to-br group-open:from-[#f6e27a] group-open:to-brass group-open:border-[#e9c877] group-open:text-white group-open:shadow-gold text-brass-deep transition-all duration-300">
       <svg class="w-4 h-4 transition-transform duration-300 group-open:rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
       </svg>

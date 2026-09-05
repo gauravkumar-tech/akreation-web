@@ -1,0 +1,118 @@
+---
+interface Props {
+  count?: number;
+  src?: string;
+  class?: string;
+}
+
+const base = import.meta.env.BASE_URL;
+const {
+  count = 14,
+  src = `${base}misc/golden-heart.png`,
+  class: className = "",
+} = Astro.props;
+---
+
+<div
+  data-hearts
+  class={`pointer-events-none absolute inset-0 overflow-hidden ${className}`}
+  aria-hidden="true"
+>
+  {Array.from({ length: count }).map(() => (
+    <span class="heart" data-heart>
+      <img src={src} alt="" draggable="false" />
+    </span>
+  ))}
+</div>
+
+<style>
+  [data-hearts] .heart {
+    position: absolute;
+    top: 0;
+    left: 0;
+    will-change: transform, opacity;
+    animation:
+      heart-rise var(--dur, 14s) linear infinite backwards,
+      heart-fade var(--dur, 14s) linear infinite backwards;
+    animation-delay: var(--delay, 0s), var(--delay, 0s);
+    --alpha: 0.9;
+  }
+  [data-hearts] .heart img {
+    display: block;
+    animation: heart-sway var(--sway-dur, 3s) ease-in-out infinite alternate;
+    filter: drop-shadow(0 0 12px rgba(246, 226, 122, 0.7));
+  }
+  @keyframes heart-rise {
+    from { transform: translate3d(0, var(--travel-from, 800px), 0); }
+    to { transform: translate3d(0, var(--travel-to, -160px), 0); }
+  }
+  @keyframes heart-fade {
+    0% { opacity: 0; }
+    10% { opacity: var(--alpha, 0.9); }
+    86% { opacity: var(--alpha, 0.9); }
+    100% { opacity: 0; }
+  }
+  @keyframes heart-sway {
+    from { transform: translateX(calc(var(--amp, 22px) * -1)) scaleY(0.82); }
+    to { transform: translateX(var(--amp, 22px)) scaleY(0.82); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-hearts] { display: none; }
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const rnd = (a, b) => a + Math.random() * (b - a);
+
+    function layout(root) {
+      const W = root.clientWidth;
+      const H = root.clientHeight;
+      if (W < 820 || H < 10) {
+        root.style.display = "none";
+        return;
+      }
+      root.style.display = "";
+      // Ceiling: stop just below the section heading (falls back to section top)
+      let ceilingY = -160;
+      const section = root.closest("section");
+      const ceil = section ? section.querySelector("[data-hearts-ceiling]") : null;
+      if (ceil) {
+        const rootTop = root.getBoundingClientRect().top;
+        ceilingY = ceil.getBoundingClientRect().bottom - rootTop + 24;
+      }
+      root.style.setProperty("--travel-from", `${Math.round(H + 120)}px`);
+      root.style.setProperty("--travel-to", `${Math.round(ceilingY)}px`);
+      const cx = W / 2;
+      const videoHalf = Math.min(448, cx - 40);
+      const inner = videoHalf + 26;
+      const outer = inner + 150;
+      root.querySelectorAll("[data-heart]").forEach((el) => {
+        const side = Math.random() < 0.5 ? -1 : 1;
+        el.style.left = `${cx + side * rnd(inner, outer)}px`;
+        el.style.setProperty("--travel", `${H + 200}px`);
+        el.style.setProperty("--alpha", rnd(0.85, 1).toFixed(2));
+        el.style.setProperty("--amp", `${Math.round(rnd(14, 30))}px`);
+        const dur = rnd(10, 18);
+        el.style.setProperty("--dur", `${dur.toFixed(2)}s`);
+        el.style.setProperty("--delay", `${rnd(0, 9).toFixed(2)}s`);
+        el.style.setProperty("--sway-dur", `${rnd(2.4, 4).toFixed(2)}s`);
+        const img = el.querySelector("img");
+        if (img) img.style.width = `${Math.round(rnd(24, 40))}px`;
+      });
+    }
+
+    document.querySelectorAll("[data-hearts]:not([data-ready])").forEach((root) => {
+      root.dataset.ready = "1";
+      layout(root);
+      window.addEventListener("load", () => layout(root));
+      let t;
+      window.addEventListener("resize", () => {
+        clearTimeout(t);
+        t = setTimeout(() => layout(root), 200);
+      });
+    });
+  })();
+</script>

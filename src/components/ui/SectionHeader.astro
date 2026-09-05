@@ -5,6 +5,7 @@ interface Props {
   description?: string;
   align?: "center" | "left";
   class?: string;
+  index?: string;
 }
 
 const {
@@ -13,12 +14,18 @@ const {
   description,
   align = "center",
   class: className = "",
+  index,
 } = Astro.props;
 
 const alignment = align === "center" ? "text-center mx-auto" : "text-left";
 ---
 
-<div class={`max-w-3xl ${alignment} ${className}`}>
+<div class={`max-w-3xl ${alignment} ${className}`} data-reveal>
+  {index && (
+    <p class="font-display italic text-[15px] tracking-[0.2em] text-rose-deep/80 dark:text-rose mb-3">
+      N° {index}
+    </p>
+  )}
   {eyebrow && (
     <p class="eyebrow eyebrow-line eyebrow-line--both justify-center mb-5">
       {eyebrow}

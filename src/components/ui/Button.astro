@@ -18,13 +18,13 @@ const {
 } = Astro.props;
 
 const base =
-  "inline-flex items-center justify-center font-medium tracking-wide transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none";
+  "btn-shine inline-flex items-center justify-center font-medium tracking-wide transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brass focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none";
 
 const variants: Record<string, string> = {
   primary:
-    "bg-espresso text-[#fdfbf7] hover:bg-brass hover:shadow-gold hover:-translate-y-px dark:bg-[#ece7dd] dark:text-[#1c1917] dark:hover:bg-brass dark:hover:text-white shadow-card",
+    "bg-espresso text-[#fdfbf7] hover:bg-rose-deep hover:shadow-rose hover:-translate-y-px dark:bg-[#ece7dd] dark:text-[#1c1917] dark:hover:bg-rose dark:hover:text-white shadow-card",
   secondary:
-    "bg-canvas/90 backdrop-blur text-ink border border-hairline-strong/40 hover:border-brass hover:text-brass-deep dark:bg-white/5 dark:text-[#ece7dd] dark:border-white/15 dark:hover:border-brass dark:hover:text-brass shadow-card",
+    "bg-canvas/90 backdrop-blur text-ink border border-hairline-strong/40 hover:border-brass hover:text-brass-deep hover:shadow-gold dark:bg-white/5 dark:text-[#ece7dd] dark:border-white/15 dark:hover:border-brass dark:hover:text-brass dark:hover:shadow-gold shadow-card",
   ghost:
     "bg-transparent text-body hover:text-brass-deep hover:bg-brass-soft/60 dark:text-[#b8b0a3] dark:hover:bg-white/5 dark:hover:text-brass",
 };

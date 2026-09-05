@@ -9,6 +9,8 @@ interface Props {
   class?: string;
 }
 
+const base = import.meta.env.BASE_URL;
+
 const {
   title,
   description,
@@ -33,7 +35,7 @@ const imgSrc =
 ---
 
 <a
-  href={`/blog/${slug}`}
+  href={`${base}blog/${slug}`}
   class={`group block bg-canvas rounded-lg border border-hairline overflow-hidden shadow-card hover:shadow-card-lg transition-shadow dark:bg-[#111111] dark:border-[#333333] ${className}`}
 >
   <div class="aspect-[16/10] bg-canvas-soft-2 dark:bg-[#1a1a1a] overflow-hidden">
