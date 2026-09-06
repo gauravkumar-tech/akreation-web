@@ -1,0 +1,589 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import Container from "../../components/ui/Container.astro";
+import Button from "../../components/ui/Button.astro";
+
+const base = import.meta.env.BASE_URL;
+const MODES = ["Cash", "UPI", "Bank Transfer", "Card", "Other"];
+
+const inputCls =
+  "w-full h-11 px-3.5 rounded-md bg-canvas-soft dark:bg-[#141210] border border-hairline-strong/40 focus:border-brass focus:ring-2 focus:ring-brass/20 outline-none transition-all text-[14px] text-ink dark:text-[#ece7dd]";
+const labelCls =
+  "block text-[11px] font-medium uppercase tracking-[0.22em] text-mute mb-2";
+---
+
+<BaseLayout
+  title="Admin Receipt"
+  description="A K Studio payment receipt builder."
+>
+  <Header slot="header" />
+
+  <!-- Auth guard -->
+  <script is:inline define:vars={{ base }}>
+    if (sessionStorage.getItem("ak_admin") !== "1") {
+      window.location.replace(`${base}admin/login`);
+    }
+  </script>
+
+  <section class="py-14 md:py-20">
+    <Container>
+      <!-- Toolbar -->
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-10 no-print" data-reveal>
+        <div>
+          <p class="eyebrow eyebrow-line mb-4">Atelier Admin · Receipts</p>
+          <h1 class="font-display font-medium text-4xl md:text-5xl text-ink dark:text-[#ece7dd]">
+            New <span class="italic text-rosegold">receipt.</span>
+          </h1>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <span class="text-[12px] font-medium tracking-[0.14em] uppercase px-4 py-2.5 rounded-full border border-brass/50 text-brass-deep dark:text-brass">
+            <span id="r-no-chip">AK-R-…</span>
+          </span>
+          <Button variant="secondary" size="md" href={`${base}admin/`}>
+            Quotations
+          </Button>
+          <Button variant="primary" size="md" id="btn-print">
+            Download PDF
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            </svg>
+          </Button>
+          <Button variant="ghost" size="md" id="btn-logout">Log out</Button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.05fr] gap-8 items-start">
+        <!-- ── Builder form ── -->
+        <div id="receipt-form" class="space-y-6 no-print" data-reveal>
+          <!-- Received from -->
+          <div class="bg-canvas dark:bg-[#1c1917] border border-hairline dark:border-[#2e2a26] rounded-lg p-6 md:p-7 shadow-card">
+            <p class="font-display italic text-[15px] tracking-[0.2em] text-rose-deep/80 dark:text-rose mb-1">N° 01</p>
+            <h2 class="font-display font-medium text-2xl mb-6">Received from</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="sm:col-span-2">
+                <label class={labelCls} for="r-against-input">Against quotation</label>
+                <select id="r-against-input" class={inputCls}>
+                  <option value="">Walk-in — no quotation</option>
+                </select>
+                <p id="r-against-info" class="hidden mt-2 text-xs font-light tracking-wide text-brass-deep dark:text-brass"></p>
+              </div>
+              <div>
+                <label class={labelCls} for="r-name">Client name</label>
+                <input id="r-name" class={inputCls} type="text" placeholder="Aarav & Diya" autocomplete="off" />
+              </div>
+              <div>
+                <label class={labelCls} for="r-phone">Phone</label>
+                <input id="r-phone" class={inputCls} type="tel" placeholder="+91 …" autocomplete="off" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class={labelCls} for="r-towards-input">Towards (booking / quotation ref)</label>
+                <input id="r-towards-input" class={inputCls} type="text" placeholder="Booking advance — Wedding, 12 Dec 2026" autocomplete="off" />
+              </div>
+              <div class="sm:col-span-2">
+                <label class={labelCls} for="r-prepared-input">Prepared by (stamp name)</label>
+                <input id="r-prepared-input" class={inputCls} type="text" placeholder="e.g. Ankit Kumar" autocomplete="off" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Payment -->
+          <div class="bg-canvas dark:bg-[#1c1917] border border-hairline dark:border-[#2e2a26] rounded-lg p-6 md:p-7 shadow-card">
+            <p class="font-display italic text-[15px] tracking-[0.2em] text-rose-deep/80 dark:text-rose mb-1">N° 02</p>
+            <h2 class="font-display font-medium text-2xl mb-6">Payment</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class={labelCls} for="r-amount-input">Amount received ₹</label>
+                <input id="r-amount-input" class={inputCls} type="number" min="0" placeholder="25,000" />
+              </div>
+              <div>
+                <label class={labelCls} for="r-date-input">Date</label>
+                <input id="r-date-input" class={inputCls} type="date" />
+              </div>
+              <div>
+                <label class={labelCls} for="r-mode-input">Mode</label>
+                <select id="r-mode-input" class={inputCls}>
+                  {MODES.map((m) => (
+                    <option>{m}</option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <label class={labelCls} for="r-txn-input">Transaction ref.</label>
+                <input id="r-txn-input" class={inputCls} type="text" placeholder="UPI ref / cheque no…" autocomplete="off" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Remarks -->
+          <div class="bg-canvas dark:bg-[#1c1917] border border-hairline dark:border-[#2e2a26] rounded-lg p-6 md:p-7 shadow-card">
+            <p class="font-display italic text-[15px] tracking-[0.2em] text-rose-deep/80 dark:text-rose mb-1">N° 03</p>
+            <h2 class="font-display font-medium text-2xl mb-6">Remarks</h2>
+            <textarea id="r-remarks-input" rows="3" class={`${inputCls} h-auto py-3 resize-y`} placeholder="Part payment, balance due…"></textarea>
+          </div>
+        </div>
+
+        <!-- ── Receipt paper ── -->
+        <div class="lg:sticky lg:top-24" data-reveal>
+          <div
+            id="receipt-doc"
+            class="bg-[#fffdf8] text-[#1c1917] border border-[#c9bda6] shadow-card-lg p-2"
+          >
+          <div class="border border-[#e2d5b8] px-7 py-9 md:px-10">
+            <!-- Letterhead -->
+            <div class="text-center">
+              <div class="w-14 h-14 mx-auto rounded-full border border-[#c39a3b] outline outline-1 outline-offset-4 outline-[#c39a3b]/50 flex items-center justify-center font-display text-[21px] tracking-[0.08em] text-[#8a6d3f] mb-5">
+                AK
+              </div>
+              <p class="font-display font-medium text-[34px] leading-none tracking-[0.02em]">A&nbsp;K <span class="italic font-normal">Studio</span></p>
+              <p class="mt-2.5 text-[9px] uppercase tracking-[0.42em] text-[#8a6d3f]">Luxury Wedding Photography & Films</p>
+              <div class="mt-4 flex items-center justify-center gap-4">
+                <span class="h-px w-16 bg-[#c9bda6]"></span>
+                <span class="w-1.5 h-1.5 rotate-45 bg-[#c39a3b]"></span>
+                <span class="h-px w-16 bg-[#c9bda6]"></span>
+              </div>
+              <p class="mt-3 text-[11px] font-light tracking-[0.08em] text-[#57534e]">New Delhi (NCR) Palam, India · +91 9213398761 · akdigitalstudio732@gmail.com</p>
+            </div>
+
+            <!-- Document title -->
+            <div class="mt-7 flex items-center gap-5">
+              <span class="h-px flex-1 bg-[#e2d5b8]"></span>
+              <p class="text-[11px] font-medium uppercase tracking-[0.5em] text-[#8a6d3f] pl-2">Payment Receipt</p>
+              <span class="h-px flex-1 bg-[#e2d5b8]"></span>
+            </div>
+
+            <!-- Meta -->
+            <div class="mt-5 grid grid-cols-3 text-center divide-x divide-[#e9e1d3] border-y border-[#e9e1d3] py-4">
+              <div class="px-2">
+                <p class="text-[9px] uppercase tracking-[0.26em] text-[#a8a29e]">Receipt No.</p>
+                <p id="r-no" class="mt-1.5 font-display font-medium text-[19px] tracking-[0.04em]">AK-R-…</p>
+              </div>
+              <div class="px-2">
+                <p class="text-[9px] uppercase tracking-[0.26em] text-[#a8a29e]">Dated</p>
+                <p id="r-date" class="mt-1.5 font-display font-medium text-[19px]">—</p>
+              </div>
+              <div class="px-2">
+                <p class="text-[9px] uppercase tracking-[0.26em] text-[#a8a29e]">Mode</p>
+                <p id="r-mode" class="mt-1.5 font-display font-medium text-[19px]">Cash</p>
+              </div>
+            </div>
+
+            <!-- Received from -->
+            <div class="mt-6 rounded-sm bg-[#faf7f1] border border-[#e9e1d3] p-5">
+              <p class="text-[9px] uppercase tracking-[0.26em] text-[#a8a29e] mb-1.5">Received with thanks from</p>
+              <p id="r-client" class="font-display font-medium text-[24px] leading-snug">—</p>
+              <p id="r-contact" class="text-[12px] font-light text-[#57534e] mt-1.5">—</p>
+            </div>
+
+            <!-- Amount -->
+            <div class="mt-6 text-center border-y-[3px] border-double border-[#c9bda6] py-6">
+              <p class="text-[10px] uppercase tracking-[0.3em] text-[#8a6d3f]">Sum received</p>
+              <p id="r-amount" class="mt-2 font-display font-medium text-[52px] leading-none tabular-nums">₹0</p>
+              <p id="r-words" class="mt-3 font-display italic text-[17px] text-[#57534e]">Zero Rupees Only</p>
+            </div>
+
+            <!-- Balance vs quotation -->
+            <div id="r-balance-wrap" class="hidden mt-5 rounded-sm border border-[#c39a3b] bg-[#faf3e3] px-4 py-3.5">
+              <div class="grid grid-cols-3 text-center divide-x divide-[#e2d5b8]">
+                <div class="px-2">
+                  <p class="text-[9px] uppercase tracking-[0.2em] text-[#a8a29e]">Quotation total</p>
+                  <p id="r-bal-total" class="mt-1 font-display font-medium text-[19px] tabular-nums">₹0</p>
+                </div>
+                <div class="px-2">
+                  <p class="text-[9px] uppercase tracking-[0.2em] text-[#a8a29e]">Paid incl. this</p>
+                  <p id="r-bal-paid" class="mt-1 font-display font-medium text-[19px] tabular-nums">₹0</p>
+                </div>
+                <div class="px-2">
+                  <p class="text-[9px] uppercase tracking-[0.2em] text-[#8a6d3f]">Balance left</p>
+                  <p id="r-bal-left" class="mt-1 font-display font-medium text-[19px] text-[#8a6d3f] tabular-nums">₹0</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Towards / txn / remarks -->
+            <div class="mt-6 space-y-3 text-[13px]">
+              <div class="flex gap-3">
+                <span class="w-28 shrink-0 text-[10px] uppercase tracking-[0.2em] text-[#a8a29e] pt-0.5">Against</span>
+                <span id="r-against" class="font-medium">Cash — no quotation</span>
+              </div>
+              <div class="flex gap-3">
+                <span class="w-28 shrink-0 text-[10px] uppercase tracking-[0.2em] text-[#a8a29e] pt-0.5">Towards</span>
+                <span id="r-towards" class="font-light">—</span>
+              </div>
+              <div class="flex gap-3" id="r-txn-row">
+                <span class="w-28 shrink-0 text-[10px] uppercase tracking-[0.2em] text-[#a8a29e] pt-0.5">Reference</span>
+                <span id="r-txn" class="font-light">—</span>
+              </div>
+              <div class="flex gap-3 hidden" id="r-remarks-wrap">
+                <span class="w-28 shrink-0 text-[10px] uppercase tracking-[0.2em] text-[#a8a29e] pt-0.5">Remarks</span>
+                <span id="r-remarks" class="font-light italic whitespace-pre-line">—</span>
+              </div>
+            </div>
+
+            <!-- Terms -->
+            <div class="mt-7 pt-4 border-t border-[#e9e1d3] text-[10.5px] font-light leading-[1.8] text-[#78716c] text-center">
+              <p>Subject to realisation of payment · Balance, if any, due 14 days before the event · Thank you for trusting A K Studio with your memories.</p>
+            </div>
+
+            <!-- Signatures -->
+            <div class="mt-9 grid grid-cols-2 gap-10 items-center">
+              <div class="text-center">
+                <div class="inline-flex flex-col items-center justify-center w-28 h-28 rounded-full border-2 border-[#c39a3b] outline outline-1 outline-offset-[-7px] outline-[#c39a3b]/70 rotate-[-8deg] text-[#8a6d3f] px-2">
+                  <p class="text-[7.5px] uppercase tracking-[0.18em]">For A K Studio</p>
+                  <p id="r-stamp-name" class="font-display italic font-medium text-[16px] leading-tight mt-1">—</p>
+                  <p id="r-stamp-date" class="text-[9px] tracking-[0.12em] mt-1">—</p>
+                </div>
+                <p class="mt-2.5 text-[10px] uppercase tracking-[0.2em] text-[#a8a29e]">Authorised stamp</p>
+              </div>
+              <div>
+                <div class="h-10"></div>
+                <div class="border-t border-[#8a6d3f] pt-2 text-[10px] uppercase tracking-[0.2em] text-[#8a6d3f]">Client signature & date</div>
+              </div>
+            </div>
+
+            <!-- Footer -->
+            <div class="mt-8 flex items-end justify-between gap-6">
+              <p class="font-display italic text-[14px] text-[#a8a29e]">Crafted with love in Delhi · Since 1985</p>
+              <div class="text-center shrink-0">
+                <img id="r-qr" alt="Scan to verify this receipt" class="w-[76px] h-[76px] mx-auto border border-[#e9e1d3] rounded-sm bg-white" />
+                <p class="mt-1.5 text-[9px] uppercase tracking-[0.2em] text-[#a8a29e]">Scan to verify</p>
+              </div>
+            </div>
+          </div>
+          </div>
+          <p class="no-print mt-4 text-center text-xs font-light text-mute">
+            Downloads as a single-page A4 PDF with a verification QR.
+          </p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <Footer slot="footer" />
+
+  <script type="application/json" id="receipt-data" set:html={JSON.stringify({ base })}></script>
+
+  <script>
+    import { jsPDF } from "jspdf";
+    import qrcode from "qrcode-generator";
+    import { ensurePdfFonts } from "../../lib/pdfFonts";
+    import { downloadNodeAsPdf } from "../../lib/docShot";
+
+    (() => {
+      const DATA = JSON.parse(document.getElementById("receipt-data").textContent);
+      const { base } = DATA;
+      if (sessionStorage.getItem("ak_admin") !== "1") return;
+
+      const $ = (s) => document.querySelector(s);
+      const inr = (n) => "₹" + Math.round(n || 0).toLocaleString("en-IN");
+      const fmtD = (d) => {
+        if (!d) return "—";
+        const dt = new Date(d + "T00:00");
+        return isNaN(dt) ? "—" : dt.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+      };
+
+      // Indian-system number to words
+      function numWords(n) {
+        n = Math.round(Math.abs(n || 0));
+        if (n === 0) return "Zero Rupees Only";
+        const ones = ["", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven", "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen"];
+        const tens = ["", "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"];
+        const two = (d) => (d < 20 ? ones[d] : tens[Math.floor(d / 10)] + (d % 10 ? " " + ones[d % 10] : ""));
+        const three = (d) => {
+          const h = Math.floor(d / 100), r = d % 100;
+          return (h ? ones[h] + " Hundred" + (r ? " " : "") : "") + (r ? two(r) : "");
+        };
+        let out = "";
+        const cr = Math.floor(n / 1e7); n %= 1e7;
+        const lk = Math.floor(n / 1e5); n %= 1e5;
+        const th = Math.floor(n / 1e3); n %= 1e3;
+        if (cr) out += three(cr) + " Crore ";
+        if (lk) out += two(lk) + " Lakh ";
+        if (th) out += two(th) + " Thousand ";
+        if (n) out += three(n);
+        return out.trim() + " Rupees Only";
+      }
+
+      // Identity
+      const rno = `AK-R-${new Date().getFullYear()}-${Math.floor(1000 + Math.random() * 9000)}`;
+      $("#r-no").textContent = rno;
+      $("#r-no-chip").textContent = rno;
+      const todayISO = new Date().toISOString().slice(0, 10);
+      $("#r-date-input").value = todayISO;
+
+      // Linkage: quotations saved from the dashboard
+      function savedQuotes() {
+        try { return JSON.parse(localStorage.getItem("ak_quotations") || "[]"); } catch (e) { return []; }
+      }
+      function fillAgainst() {
+        const sel = $("#r-against-input");
+        const cur = sel.value;
+        sel.innerHTML = `<option value="">Walk-in — no quotation</option>` + savedQuotes().map((q) => {
+          const safeClient = String(q.client || "").replace(/"/g, "&quot;");
+          return `<option value="${q.no}">${q.no} · ${safeClient} · ₹${Number(q.total || 0).toLocaleString("en-IN")}</option>`;
+        }).join("");
+        if ([...sel.options].some((o) => o.value === cur)) sel.value = cur;
+      }
+      fillAgainst();
+      try { $("#r-prepared-input").value = localStorage.getItem("ak_prepared") || ""; } catch (e) {}
+      $("#r-against-input").addEventListener("change", (e) => {
+        const q = savedQuotes().find((x) => x.no === e.target.value);
+        const info = $("#r-against-info");
+        if (!q) { info.classList.add("hidden"); render(); return; }
+        if (!$("#r-name").value.trim()) $("#r-name").value = q.client || "";
+        if (!$("#r-phone").value.trim() && q.phone) $("#r-phone").value = q.phone;
+        const tw = $("#r-towards-input");
+        if (!tw.value.trim()) tw.value = `Balance payment — ${q.no}`;
+        info.innerHTML = `Linked: <span class="font-medium">${q.no}</span> · Quotation total ₹${Number(q.total || 0).toLocaleString("en-IN")} · Balance quoted ₹${Number(q.bal || 0).toLocaleString("en-IN")}`;
+        info.classList.remove("hidden");
+        render();
+      });
+      let lastR = null;
+
+      function verifyUrl(payload) {
+        const b64 = btoa(unescape(encodeURIComponent(JSON.stringify(payload))))
+          .replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+        return `${location.origin}${base}verify/#d=${b64}`;
+      }
+      function qrImage(text, minimal) {
+        for (const lv of ["M", "L"]) {
+          try {
+            const q = qrcode(0, lv);
+            q.addData(text);
+            q.make();
+            return { url: q.createDataURL(5, 0), link: text };
+          } catch (e) { /* retry */ }
+        }
+        try {
+          const q = qrcode(0, "L");
+          q.addData(minimal);
+          q.make();
+          return { url: q.createDataURL(5, 0), link: minimal };
+        } catch (e) {
+          return { url: "", link: text };
+        }
+      }
+      const money = (n) => "Rs. " + Math.round(n || 0).toLocaleString("en-IN");
+
+      function render() {
+        const name = $("#r-name").value.trim() || "—";
+        const phone = $("#r-phone").value.trim();
+        $("#r-client").textContent = name;
+        $("#r-contact").textContent = phone || "—";
+        $("#r-towards").textContent = $("#r-towards-input").value.trim() || "—";
+        const amount = Math.max(0, parseFloat($("#r-amount-input").value) || 0);
+        $("#r-amount").textContent = inr(amount);
+        $("#r-words").textContent = numWords(amount);
+        $("#r-date").textContent = fmtD($("#r-date-input").value);
+        $("#r-mode").textContent = $("#r-mode-input").value;
+        const againstNo = $("#r-against-input").value;
+        $("#r-against").textContent = againstNo || "Cash — no quotation";
+        const creator = $("#r-prepared-input").value.trim() || "A K Studio";
+        try { localStorage.setItem("ak_prepared", $("#r-prepared-input").value.trim()); } catch (e) {}
+        $("#r-stamp-name").textContent = creator;
+        $("#r-stamp-date").textContent = $("#r-date").textContent;
+        const txn = $("#r-txn-input").value.trim();
+        $("#r-txn-row").style.display = txn ? "" : "none";
+        $("#r-txn").textContent = txn || "—";
+        const rem = $("#r-remarks-input").value.trim();
+        $("#r-remarks-wrap").classList.toggle("hidden", !rem);
+        $("#r-remarks").textContent = rem;
+
+        // Balance vs linked quotation (saved receipts + this one)
+        let balInfo = null;
+        try {
+          const q = savedQuotes().find((x) => x.no === againstNo);
+          const saved = JSON.parse(localStorage.getItem("ak_receipts") || "[]");
+          if (q && againstNo) {
+            const paidOthers = saved.filter((r) => r.against === againstNo).reduce((s, r) => s + (Number(r.amount) || 0), 0);
+            const paid = paidOthers + amount;
+            balInfo = { total: Number(q.total) || 0, paid: Math.round(paid), left: Math.max(0, Math.round(Number(q.total) - paid)) };
+          }
+        } catch (e) { balInfo = null; }
+        $("#r-balance-wrap").classList.toggle("hidden", !balInfo);
+        if (balInfo) {
+          $("#r-bal-total").textContent = inr(balInfo.total);
+          $("#r-bal-paid").textContent = inr(balInfo.paid);
+          $("#r-bal-left").textContent = inr(balInfo.left);
+        }
+
+        // Stash + QR (screen preview)
+        lastR = {
+          no: rno, dt: $("#r-date").textContent, mode: $("#r-mode-input").value,
+          client: name, contact: phone, amount: Math.round(amount), words: numWords(amount),
+          towards: $("#r-towards-input").value.trim() || "—",
+          txn, remarks: rem, against: againstNo || "", prepared: creator, balance: balInfo,
+        };
+        const fullLink = verifyUrl({ t: "r", ...lastR });
+        const miniLink = verifyUrl({ t: "r", no: rno, client: name, amount: Math.round(amount) });
+        const qr = qrImage(fullLink, miniLink);
+        lastR.qr = qr.url;
+        lastR.link = qr.link;
+        if (qr.url) $("#r-qr").src = qr.url;
+      }
+
+      $("#receipt-form").addEventListener("input", render);
+      $("#receipt-form").addEventListener("change", render);
+      render();
+
+      // ── One-click single-page A4 PDF ──
+      function downloadReceiptPDF(doc, r) {
+        const GOLD = [195, 154, 59], GOLDD = [138, 109, 63], INK = [28, 25, 23],
+          MUT = [122, 114, 106], HAIR = [233, 225, 211], FRAME = [201, 189, 166];
+        const C = (t, x, y) => doc.text(t, x, y, { align: "center" });
+
+        doc.setDrawColor(...FRAME); doc.setLineWidth(0.5); doc.rect(10, 10, 190, 277);
+        doc.setDrawColor(...HAIR); doc.setLineWidth(0.3); doc.rect(12.5, 12.5, 185, 272);
+
+        // Letterhead
+        doc.setDrawColor(...GOLD); doc.setLineWidth(0.6); doc.circle(105, 23, 6);
+        doc.setFont("cormorant", "bold"); doc.setFontSize(10); doc.setTextColor(...GOLDD); C("AK", 105, 24.7);
+        doc.setFontSize(23); doc.setTextColor(...INK); C("A K Studio", 105, 35);
+        doc.setFont("inter", "normal"); doc.setFontSize(7.5); doc.setTextColor(...MUT);
+        C("LUXURY WEDDING PHOTOGRAPHY & FILMS", 105, 39);
+        doc.setFontSize(8.5); doc.setTextColor(87, 83, 78);
+        C("New Delhi (NCR) Palam, India  ·  +91 9213398761  ·  akdigitalstudio732@gmail.com", 105, 43);
+        doc.setDrawColor(...GOLD); doc.setLineWidth(0.5);
+        doc.line(60, 47, 98, 47); doc.line(112, 47, 150, 47);
+        doc.setFillColor(...GOLD); doc.circle(105, 47, 1.1, "F");
+
+        doc.setFont("inter", "bold"); doc.setFontSize(10.5); doc.setTextColor(...GOLDD);
+        C("PAYMENT RECEIPT", 105, 53);
+        doc.setDrawColor(...HAIR); doc.setLineWidth(0.3);
+        doc.line(40, 55.5, 80, 55.5); doc.line(130, 55.5, 170, 55.5);
+
+        // Meta
+        const metas = [["RECEIPT NO.", r.no], ["DATED", r.dt], ["MODE", r.mode]];
+        metas.forEach((m, i) => {
+          const x = [45, 105, 165][i];
+          doc.setFont("inter", "normal"); doc.setFontSize(7.5); doc.setTextColor(...MUT); C(m[0], x, 62);
+          doc.setFont("cormorant", "bold"); doc.setFontSize(11); doc.setTextColor(...INK); C(m[1], x, 67);
+        });
+
+        // Received-from box
+        doc.setDrawColor(...HAIR); doc.setLineWidth(0.3); doc.rect(14, 72, 182, 26);
+        doc.setFont("inter", "normal"); doc.setFontSize(7.5); doc.setTextColor(...MUT);
+        doc.text("RECEIVED WITH THANKS FROM", 18, 77);
+        doc.setFont("cormorant", "bold"); doc.setFontSize(14); doc.setTextColor(...INK);
+        doc.text(doc.splitTextToSize(r.client, 170).slice(0, 1).join(""), 18, 83.5);
+        doc.setFont("inter", "normal"); doc.setFontSize(9); doc.setTextColor(87, 83, 78);
+        doc.text(doc.splitTextToSize(r.contact || "—", 170).slice(0, 1).join(""), 18, 89);
+
+        // Amount centerpiece
+        doc.setDrawColor(...GOLD); doc.setLineWidth(0.5); doc.line(30, 106, 180, 106);
+        doc.setDrawColor(...FRAME); doc.setLineWidth(0.25); doc.line(30, 107, 180, 107);
+        doc.setFont("inter", "normal"); doc.setFontSize(8); doc.setTextColor(...GOLDD);
+        C("SUM RECEIVED", 105, 113);
+        doc.setFont("cormorant", "bold"); doc.setFontSize(33); doc.setTextColor(...INK);
+        C(money(r.amount), 105, 126);
+        doc.setFont("cormorant", "italic"); doc.setFontSize(11); doc.setTextColor(87, 83, 78);
+        C(r.words, 105, 132);
+        doc.setDrawColor(...GOLD); doc.setLineWidth(0.5); doc.line(30, 137, 180, 137);
+        doc.setDrawColor(...FRAME); doc.setLineWidth(0.25); doc.line(30, 138, 180, 138);
+
+        // Balance strip (linked quotation) — vector fallback only
+        let y = 148;
+        if (r.balance) {
+          const b = r.balance;
+          doc.setDrawColor(...GOLD); doc.setLineWidth(0.4);
+          doc.rect(30, 144, 150, 15);
+          const cols = [
+            ["QUOTATION TOTAL", money(b.total), 62],
+            ["PAID INCL. THIS", money(b.paid), 105],
+            ["BALANCE LEFT", money(b.left), 148],
+          ];
+          cols.forEach(([label, val, cx], i) => {
+            doc.setFont("inter", "normal"); doc.setFontSize(6.5); doc.setTextColor(...MUT);
+            doc.text(label, cx, 149, { align: "center" });
+            doc.setFont("cormorant", "bold"); doc.setFontSize(10.5);
+            doc.setTextColor(...(i === 2 ? GOLDD : INK));
+            doc.text(val, cx, 154.5, { align: "center" });
+          });
+          y = 166;
+        }
+        const row2 = (label, val) => {
+          doc.setFont("inter", "normal"); doc.setFontSize(7.5); doc.setTextColor(...MUT);
+          doc.text(label, 16, y);
+          doc.setFontSize(9.5); doc.setTextColor(...INK);
+          doc.splitTextToSize(val || "—", 130).slice(0, 2).forEach((ln, i) => doc.text(ln, 62, y + i * 4.2));
+          y += 9;
+        };
+        row2("AGAINST", r.against || "Cash — walk-in");
+        row2("TOWARDS", r.towards);
+        if (r.txn && r.txn !== "—") row2("REFERENCE", r.txn);
+        if (r.remarks) row2("REMARKS", r.remarks);
+
+        // Terms + signatures + footer
+        doc.setFont("inter", "normal"); doc.setFontSize(7.5); doc.setTextColor(...MUT);
+        doc.splitTextToSize("Subject to realisation of payment · Balance, if any, due 14 days before the event · Thank you for trusting A K Studio with your memories.", 172)
+          .forEach((ln, i) => C(ln, 105, 232 + i * 3.6));
+        doc.setDrawColor(...GOLDD); doc.setLineWidth(0.4);
+        // Authorising stamp (left) + client line (right)
+        const scx = 55, scy = 254;
+        doc.setDrawColor(...GOLD); doc.setLineWidth(0.6); doc.circle(scx, scy, 15);
+        doc.setLineWidth(0.3); doc.circle(scx, scy, 12.5);
+        doc.setFont("inter", "normal"); doc.setFontSize(6.5); doc.setTextColor(...GOLDD);
+        C("FOR A K STUDIO", scx, scy - 6);
+        doc.setFont("cormorant", "bold"); doc.setFontSize(9.5); doc.setTextColor(...INK);
+        C(doc.splitTextToSize(r.prepared || "A K Studio", 24).slice(0, 1).join(""), scx, scy - 0.5);
+        doc.setFont("inter", "normal"); doc.setFontSize(7); doc.setTextColor(...MUT);
+        C(r.dt, scx, scy + 5);
+        doc.setFontSize(6.5); doc.setTextColor(...GOLDD); C("AUTHORISED STAMP", scx, scy + 10.5);
+        doc.line(115, 262, 194, 262);
+        doc.setFontSize(7); C("CLIENT SIGNATURE & DATE", 155, 266.5);
+        doc.setFont("cormorant", "italic"); doc.setFontSize(8.5); doc.setTextColor(...MUT);
+        C("Crafted with love in Delhi · Since 1985", 105, 287);
+
+        // QR verification stamp (top-right)
+        if (r.qr) {
+          try {
+            doc.addImage(r.qr, "GIF", 172, 15, 20, 20);
+            doc.setFont("inter", "normal"); doc.setFontSize(6); doc.setTextColor(...MUT);
+            C("SCAN TO VERIFY", 182, 37.5);
+          } catch (e) { /* decorative only */ }
+        }
+
+        doc.save(`${r.no} - A K Studio Receipt.pdf`);
+      }
+
+      // ── Pixel-exact download (preview render), vector fallback ──
+      function saveReceipt(r) {
+        try {
+          const all = JSON.parse(localStorage.getItem("ak_receipts") || "[]").filter((x) => x.no !== r.no);
+          all.unshift({ no: r.no, against: r.against, amount: r.amount, dt: r.dt, client: r.client });
+          localStorage.setItem("ak_receipts", JSON.stringify(all.slice(0, 100)));
+        } catch (e) { /* private mode etc. */ }
+      }
+
+      $("#btn-print").addEventListener("click", async () => {
+        if (!lastR) return;
+        const btn = $("#btn-print");
+        const label = btn.innerHTML;
+        btn.innerHTML = "Preparing…";
+        btn.style.pointerEvents = "none";
+        try {
+          saveReceipt(lastR);
+          render();
+          await downloadNodeAsPdf(
+            document.getElementById("receipt-doc"), base,
+            `${lastR.no} - A K Studio Receipt.pdf`
+          );
+        } catch (e) {
+          const doc = new jsPDF({ unit: "mm", format: "a4" });
+          await ensurePdfFonts(doc, base);
+          downloadReceiptPDF(doc, lastR);
+        } finally {
+          btn.innerHTML = label;
+          btn.style.pointerEvents = "";
+        }
+      });
+
+      // Logout
+      $("#btn-logout").addEventListener("click", () => {
+        sessionStorage.removeItem("ak_admin");
+        window.location.href = `${base}admin/login`;
+      });
+    })();
+  </script>
+</BaseLayout>

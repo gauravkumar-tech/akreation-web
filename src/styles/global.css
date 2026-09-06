@@ -118,6 +118,22 @@
     border: 2px solid var(--color-canvas-soft);
   }
 
+  /* Native date pickers follow the theme (icon + popup) */
+  input[type="date"] {
+    color-scheme: light;
+  }
+  .dark input[type="date"] {
+    color-scheme: dark;
+  }
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.55;
+  }
+  .dark input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.9;
+    filter: invert(0.72) sepia(0.55) saturate(3.2) hue-rotate(-12deg);
+  }
+
   /* Dark mode — warm charcoal, not pure black */
   .dark body,
   .dark {
@@ -399,6 +415,48 @@
 @layer components {
   .scroll-line {
     animation: scroll-drop 2.4s ease-in-out infinite;
+  }
+}
+
+/* ─── Print (admin quotation → PDF) ─── */
+@media print {
+  @page {
+    size: A4;
+    margin: 11mm;
+  }
+
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  [data-reveal],
+  [data-reveal-group] > * {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  #quotation-doc {
+    box-shadow: none !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    border-radius: 0 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  #receipt-doc {
+    box-shadow: none !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    border-radius: 0 !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 }
 

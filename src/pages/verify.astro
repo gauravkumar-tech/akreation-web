@@ -1,0 +1,129 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Container from "../components/ui/Container.astro";
+
+const base = import.meta.env.BASE_URL;
+---
+
+<BaseLayout
+  title="Verify Document"
+  description="Verify an A K Studio quotation or receipt."
+>
+  <Header slot="header" />
+
+  <section class="py-16 md:py-24">
+    <Container>
+      <div class="max-w-2xl mx-auto text-center mb-10" data-reveal>
+        <div class="w-14 h-14 mx-auto rounded-full border border-brass/50 flex items-center justify-center font-display text-[22px] tracking-[0.08em] text-brass mb-6" aria-hidden="true">
+          AK
+        </div>
+        <p class="eyebrow eyebrow-line eyebrow-line--both justify-center mb-4">Document Verification</p>
+        <h1 class="font-display font-medium text-4xl md:text-5xl text-ink dark:text-[#ece7dd]">
+          Verified <span class="italic text-rosegold">copy.</span>
+        </h1>
+        <div class="gold-divider w-24 mx-auto mt-6" />
+        <p id="verify-note" class="mt-5 text-sm font-light text-mute">
+          This digital copy matches the quotation or receipt issued by A K Studio.
+        </p>
+      </div>
+
+      <div class="max-w-2xl mx-auto" data-reveal>
+        <div
+          id="verify-doc"
+          class="bg-[#fffdf8] text-[#1c1917] border border-[#c9bda6] shadow-card-lg p-2"
+        >
+          <div class="border border-[#e2d5b8] px-7 py-8">
+            <div class="text-center">
+              <p class="font-display font-medium text-[26px]">A&nbsp;K <span class="italic font-normal">Studio</span></p>
+              <p class="mt-1.5 text-[9px] uppercase tracking-[0.42em] text-[#8a6d3f]">Luxury Wedding Photography & Films</p>
+            </div>
+            <div class="my-6 h-px bg-[#e9e1d3]"></div>
+            <div id="verify-body" class="text-[14px]"></div>
+            <div class="mt-6 pt-4 border-t border-[#e9e1d3] text-center">
+              <p class="font-display italic text-[14px] text-[#a8a29e]">Crafted with love in Delhi · Since 1985</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="no-print mt-6 text-center">
+          <a
+            href={base}
+            class="inline-flex items-center justify-center h-11 px-6 text-sm uppercase tracking-[0.14em] rounded-full bg-espresso text-[#fdfbf7] font-medium hover:bg-rose-deep transition-all dark:bg-[#ece7dd] dark:text-[#1c1917] dark:hover:bg-rose dark:hover:text-white"
+          >
+            Visit A K Studio
+          </a>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <Footer slot="footer" />
+
+  <script is:inline>
+    (() => {
+      const inr = (n) => "Rs. " + Math.round(n || 0).toLocaleString("en-IN");
+      const esc = (s) => String(s ?? "—").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      const body = document.getElementById("verify-body");
+      const note = document.getElementById("verify-note");
+
+      function fail(msg) {
+        note.textContent = msg;
+        body.innerHTML = `<p class="text-center font-light text-[#78716c]">This link does not contain a valid document. Please ask A K Studio to re-issue your quotation or receipt.</p>`;
+      }
+
+      try {
+        const m = location.hash.match(/#d=([A-Za-z0-9\-_]+)/);
+        if (!m) return fail("No document found in this link.");
+        const json = decodeURIComponent(escape(atob(m[1].replace(/-/g, "+").replace(/_/g, "/"))));
+        const d = JSON.parse(json);
+        if (!d || (d.t !== "q" && d.t !== "r") || !d.no) return fail("No document found in this link.");
+
+        const isQ = d.t === "q";
+        const rows = (d.items || []).map((r) => `
+          <tr class="border-b border-[#f3ede1]">
+            <td class="py-2.5 pr-2">${esc(r.l)}${r.d && r.d !== "—" ? ` <span class="text-[#a8a29e]">· ${esc(r.d)}</span>` : ""}</td>
+            <td class="py-2.5 text-right whitespace-nowrap font-medium">${inr(r.a)}</td>
+          </tr>`).join("");
+
+        body.innerHTML = `
+          <div class="text-center mb-5">
+            <p class="text-[10px] uppercase tracking-[0.3em] text-[#8a6d3f]">${isQ ? "Wedding Quotation" : "Payment Receipt"}</p>
+            <p class="mt-1.5 font-display font-medium text-[24px] tracking-[0.04em]">${esc(d.no)}</p>
+            <p class="mt-1 text-[12px] font-light text-[#78716c]">${esc(d.dt || "")}${d.vd ? ` · Valid till ${esc(d.vd)}` : ""}${d.mode ? ` · ${esc(d.mode)}` : ""}</p>
+          </div>
+          <div class="rounded-sm bg-[#faf7f1] border border-[#e9e1d3] p-4 mb-5">
+            <p class="text-[9px] uppercase tracking-[0.26em] text-[#a8a29e] mb-1">${isQ ? "Prepared for" : "Received from"}</p>
+            <p class="font-display font-medium text-[20px]">${esc(d.client)}</p>
+            ${d.contact ? `<p class="text-[12px] font-light text-[#57534e] mt-1">${esc(d.contact)}</p>` : ""}
+            ${d.coverage ? `<p class="text-[12px] font-light text-[#57534e] mt-1">${esc(d.coverage)}${d.dates ? ` · ${esc(d.dates)}` : ""}</p>` : ""}
+          </div>
+          ${rows ? `<table class="w-full text-[13px] mb-5"><tbody>${rows}</tbody></table>` : ""}
+          <div class="ml-auto max-w-[230px] text-[13px] space-y-1.5">
+            ${d.sub != null ? `<div class="flex justify-between text-[#57534e]"><span>Subtotal</span><span>${inr(d.sub)}</span></div>` : ""}
+            ${d.disc ? `<div class="flex justify-between text-[#57534e]"><span>Discount${d.discPct ? ` (${esc(String(d.discPct))}%)` : ""}</span><span>− ${inr(d.disc)}</span></div>` : ""}
+            <div class="flex justify-between items-baseline py-2 border-y-[3px] border-double border-[#c9bda6]">
+              <span class="text-[10px] uppercase tracking-[0.24em] text-[#8a6d3f]">${isQ ? "Total" : "Amount"}</span>
+              <span class="font-display font-medium text-[28px]">${inr(isQ ? d.total : d.amount)}</span>
+            </div>
+            ${isQ && d.adv ? `<div class="flex justify-between text-[#57534e]"><span>Advance received</span><span>${inr(d.adv)}</span></div>` : ""}
+            ${isQ && d.bal != null ? `<div class="flex justify-between font-medium border border-[#c39a3b] rounded-sm px-3 py-2"><span>Balance due</span><span>${inr(d.bal)}</span></div>` : ""}
+            ${!isQ && d.words ? `<p class="font-display italic text-[15px] text-[#57534e] text-right">${esc(d.words)}</p>` : ""}
+            ${!isQ && d.balance ? `<div class="mt-4 grid grid-cols-3 text-center border border-[#c39a3b] rounded-sm divide-x divide-[#e9e1d3] py-3">
+              <div><p class="text-[9px] uppercase tracking-[0.2em] text-[#a8a29e]">Quotation total</p><p class="font-display font-medium text-[18px]">${inr(d.balance.total)}</p></div>
+              <div><p class="text-[9px] uppercase tracking-[0.2em] text-[#a8a29e]">Paid incl. this</p><p class="font-display font-medium text-[18px]">${inr(d.balance.paid)}</p></div>
+              <div><p class="text-[9px] uppercase tracking-[0.2em] text-[#8a6d3f]">Balance left</p><p class="font-display font-medium text-[18px] text-[#8a6d3f]">${inr(d.balance.left)}</p></div>
+            </div>` : ""}
+          </div>
+          ${d.towards && d.towards !== "—" ? `<p class="mt-4 text-[12px] font-light text-[#57534e]"><span class="text-[10px] uppercase tracking-[0.2em] text-[#a8a29e]">Towards — </span>${esc(d.towards)}</p>` : ""}
+          ${d.against ? `<p class="mt-2 text-[12px] font-light text-[#57534e]"><span class="text-[10px] uppercase tracking-[0.2em] text-[#a8a29e]">Against quotation — </span><span class="font-medium">${esc(d.against)}</span></p>` : ""}
+          ${d.prepared ? `<p class="mt-2 text-[12px] font-light text-[#57534e]"><span class="text-[10px] uppercase tracking-[0.2em] text-[#a8a29e]">Authorised by — </span><span class="font-display italic text-[15px]">${esc(d.prepared)}</span><span class="text-[#a8a29e]"> · A K Studio</span></p>` : ""}
+          ${d.notes ? `<p class="mt-3 text-[12px] font-light italic text-[#57534e] whitespace-pre-line">${esc(d.notes)}</p>` : ""}
+          ${d.remarks ? `<p class="mt-3 text-[12px] font-light italic text-[#57534e] whitespace-pre-line">${esc(d.remarks)}</p>` : ""}`;
+      } catch (e) {
+        fail("This link could not be read.");
+      }
+    })();
+  </script>
+</BaseLayout>
