@@ -56,6 +56,7 @@ export async function downloadNodeAsPdf(el, base, filename) {
   const NS = "http://www.w3.org/1999/xhtml";
   const wrapper = document.createElementNS(NS, "div");
   wrapper.setAttribute("xmlns", NS);
+  wrapper.setAttribute("style", "background:#fffdf8;margin:0;padding:0;");
   const styleEl = document.createElementNS(NS, "style");
   styleEl.textContent = css;
   wrapper.appendChild(styleEl);
@@ -88,7 +89,7 @@ export async function downloadNodeAsPdf(el, base, filename) {
   canvas.height = h * SCALE;
   const ctx = canvas.getContext("2d");
   if (!ctx) throw new Error("no 2d context");
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = "#fffdf8";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
   const png = canvas.toDataURL("image/png");
@@ -96,13 +97,9 @@ export async function downloadNodeAsPdf(el, base, filename) {
   const doc = new jsPDF({ unit: "mm", format: "a4" });
   const pageW = 210, pageH = 297;
 
-  // Stationery page: ivory ground + a single quiet hairline
-  // (the document brings its own double frame — one frame owns the page)
+  // Stationery page: plain ivory ground, document's own frame does the talking
   doc.setFillColor(255, 253, 248);
   doc.rect(0, 0, pageW, pageH, "F");
-  doc.setDrawColor(201, 189, 166);
-  doc.setLineWidth(0.4);
-  doc.rect(8, 8, pageW - 16, pageH - 16);
 
   // Capture seated with a true top margin, centered
   const TOP = 15, SIDE = 15, BOTTOM = 15;
