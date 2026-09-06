@@ -15,15 +15,18 @@
     "featured": true
   },
   {
-    "id": "ananya-vikram-wedding",
-    "title": "Ananya & Vikram's Wedding",
-    "couple": "Ananya & Vikram",
+    "id": "divya-sahil-wedding",
+    "title": "Divya & Sahil's Wedding",
+    "couple": "Divya & Sahil",
     "venue": "Taj Palace, New Delhi",
     "date": "2025-10-22",
     "category": "wedding",
     "style": "editorial",
-    "coverImage": "https://placehold.co/800x600/171717/fafafa?text=Ananya+%26+Vikram&font=inter",
-    "images": [],
+    "coverImage": "ak-weddings/divya_sahil_wedding.jpg",
+    "images": [
+      "ak-weddings/divya_sahil_wedding.jpg"
+    ],
+    "description": "An elegant celebration at the Taj Palace with fine art editorial photography and cinematic videography.",
     "description": "An elegant celebration at the Taj Palace with fine art editorial photography and cinematic videography.",
     "featured": true
   },

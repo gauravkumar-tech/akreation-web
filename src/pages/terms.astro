@@ -13,10 +13,24 @@ import Container from "../components/ui/Container.astro";
 
   <section class="py-16 md:py-24">
     <Container>
-      <article class="max-w-3xl mx-auto prose dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight">
-        <p class="font-mono text-xs uppercase tracking-widest text-mute dark:text-[#666666] mb-4">Legal</p>
-        <h1>Terms of Service.</h1>
-        <p class="text-body dark:text-[#a1a1a1]">Last updated: January 2025</p>
+      <div class="max-w-3xl mx-auto text-center mb-12" data-reveal>
+        <p class="eyebrow eyebrow-line eyebrow-line--both justify-center mb-5">Legal</p>
+        <h1 class="font-display font-medium text-5xl md:text-[60px] leading-[1.05] tracking-[-0.01em] text-ink dark:text-[#ece7dd]">
+          Terms of <span class="italic text-rosegold">Service.</span>
+        </h1>
+        <div class="gold-divider w-24 mx-auto mt-7" />
+        <p class="mt-5 text-sm font-light tracking-wide text-mute">Last updated: January 2025</p>
+      </div>
+      <article
+        class="max-w-3xl mx-auto bg-canvas dark:bg-[#1c1917] border border-hairline dark:border-[#2e2a26] rounded-lg p-8 md:p-12 shadow-card prose dark:prose-invert font-light
+          prose-headings:font-display prose-headings:font-medium prose-headings:tracking-[-0.01em]
+          prose-h2:text-[28px] prose-h2:mt-10
+          prose-p:text-body dark:prose-p:text-[#cfc8ba] prose-p:leading-[1.9] prose-p:text-[15px]
+          prose-li:text-body dark:prose-li:text-[#cfc8ba] prose-li:font-light prose-li:text-[15px] prose-li:marker:text-brass
+          prose-a:text-brass-deep dark:prose-a:text-brass hover:prose-a:text-rose-deep
+          prose-strong:text-ink dark:prose-strong:text-[#ece7dd] prose-strong:font-medium"
+        data-reveal
+      >
 
         <h2>Booking & Payment</h2>
         <p>

@@ -30,7 +30,7 @@ const resolvedCover = coverImage.startsWith("http") ? coverImage : `${base}${cov
   data-category={category}
   data-tilt
 >
-  <div class="bg-canvas-soft-2 dark:bg-[#292524] overflow-hidden rounded-lg shadow-card group-hover:shadow-card-lg transition-all duration-500">
+  <div class="bg-canvas-soft-2 dark:bg-[#292524] overflow-hidden rounded-lg shadow-card group-hover:shadow-card-lg group-hover:ring-1 group-hover:ring-brass/60 transition-all duration-500 relative">
     {/* Full photo at natural aspect — card wraps it tightly, no crop, no filler */}
     <img
       src={resolvedCover}
@@ -38,15 +38,15 @@ const resolvedCover = coverImage.startsWith("http") ? coverImage : `${base}${cov
       class="img-luxe w-full h-auto transition-transform duration-[1.2s] ease-out group-hover:scale-[1.03]"
       loading="lazy"
     />
+    {/* Golden wash + bottom glow — image only, fades in on hover */}
+    <div class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-gradient-to-t from-[#8a6d3f]/50 via-[#c39a3b]/12 to-transparent" aria-hidden="true" />
+    <div class="pointer-events-none absolute inset-0 rounded-lg ring-1 ring-inset ring-[#f6e27a]/0 group-hover:ring-[#f6e27a]/50 transition-all duration-700" aria-hidden="true" />
   </div>
 
   <!-- Caption — editorial, always visible -->
   <div class="pt-5 pb-1 text-center">
     <p class="text-[11px] uppercase tracking-[0.28em] text-brass-deep dark:text-brass">{category}</p>
-    <p class="font-display text-[22px] leading-snug mt-1.5 text-ink dark:text-[#ece7dd]">{couple}</p>
+    <p class="font-display text-[22px] leading-snug mt-1.5 text-ink dark:text-[#ece7dd] group-hover:text-brass-deep dark:group-hover:text-brass transition-colors duration-500">{couple}</p>
     <p class="text-[13px] font-light tracking-wide text-body dark:text-[#b8b0a3] mt-1">{venue}</p>
   </div>
-
-  <!-- Hover veil -->
-  <div class="pointer-events-none absolute inset-0 rounded-lg ring-1 ring-inset ring-brass/0 group-hover:ring-brass/40 transition-all duration-500" />
 </a>
